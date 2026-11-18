@@ -1,0 +1,173 @@
+{
+  "review_id": "4e83ab3782614357b7095561f3c3f76c",
+  "document_type": "NDA",
+  "total_clauses": 5,
+  "risk_summary": {
+    "High": 2,
+    "Medium": 1,
+    "Low": 1,
+    "Unclear": 1
+  },
+  "clauses": [
+    {
+      "clause_id": "CLAUSE_001",
+      "heading": "Definition of Confidential Information",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "1. Definition of Confidential Information\nConfidential Information includes business, technical, financial and operational information disclosed by either party.",
+      "risk_level": "High",
+      "compliance_status": "Non-Compliant",
+      "applicable_rule_ids": [
+        "RULE_003"
+      ],
+      "explanation": "The clause only defines Confidential Information but imposes no obligations to protect it or limit disclosure to authorised representatives with a need to know, violating RULE_003's requirement for confidentiality duties and safeguards.",
+      "suggested_redline": "Confidential Information means any business, technical, financial and operational information disclosed by either party, and the receiving party shall protect such Confidential Information using reasonable safeguards and shall not disclose it except to its authorised representatives who have a need to know and are bound by confidentiality obligations at least as protective as these terms.",
+      "negotiation_action": "Require amendment to add confidentiality protection obligations",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_003",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_003 - Confidentiality\nPolicy: Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.\nRed flags:\n- No confidentiality obligations\n- Unrestricted disclosure rights\n- No safeguards or return/deletion obligations\nPreferred wording: The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Broad disclosure to affiliates or subcontractors without controls."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_002",
+      "heading": "Confidentiality Obligations",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "2. Confidentiality Obligations\nThe receiving party shall use reasonable care to protect confidential information and shall not disclose it except to authorised representatives who need to know.",
+      "risk_level": "Medium",
+      "compliance_status": "Partially Compliant",
+      "applicable_rule_ids": [
+        "RULE_003"
+      ],
+      "explanation": "RULE_003 applies to this confidentiality clause. The clause requires the receiving party to use reasonable care and limits disclosure to authorised representatives with a need to know, which aligns with part of the policy. However, it does not require those authorised representatives to be bound by confidentiality obligations at least as protective as the clause, which is required by RULE_003.",
+      "suggested_redline": "The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.",
+      "negotiation_action": "Request that the clause be revised to require authorised representatives to be bound by confidentiality obligations at least as protective as these terms.",
+      "requires_legal_review": false,
+      "evidence": [
+        {
+          "rule_id": "RULE_003",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_003 - Confidentiality\nPolicy: Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.\nRed flags:\n- No confidentiality obligations\n- Unrestricted disclosure rights\n- No safeguards or return/deletion obligations\nPreferred wording: The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Broad disclosure to affiliates or subcontractors without controls."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_003",
+      "heading": "Permitted Disclosures",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "3. Permitted Disclosures\nDisclosure is permitted where required by law, provided notice is given where legally permitted.",
+      "risk_level": "High",
+      "compliance_status": "Non-Compliant",
+      "applicable_rule_ids": [
+        "RULE_003"
+      ],
+      "explanation": "The clause permits disclosures required by law without requiring confidentiality obligations, need-to-know restrictions, or safeguards, violating RULE_003 which mandates that disclosures be limited to authorised representatives with need to know and subject to equivalent confidentiality duties.",
+      "suggested_redline": "Disclosure is permitted only as required by law, provided that notice is given where legally permitted and that any disclosed information is limited to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.",
+      "negotiation_action": "Amend clause to incorporate need-to-know and confidentiality safeguards.",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_003",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_003 - Confidentiality\nPolicy: Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.\nRed flags:\n- No confidentiality obligations\n- Unrestricted disclosure rights\n- No safeguards or return/deletion obligations\nPreferred wording: The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Broad disclosure to affiliates or subcontractors without controls."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_004",
+      "heading": "Duration",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "4. Duration\nConfidentiality obligations continue for three years after disclosure.",
+      "risk_level": "Unclear",
+      "compliance_status": "Not Assessed",
+      "applicable_rule_ids": [],
+      "explanation": "This clause only sets how long confidentiality obligations last (three years after disclosure). Neither retrieved rule governs that duration. RULE_003 (confidentiality) requires safeguards, limits on disclosure to authorised representatives with a need to know, and equivalent confidentiality duties. It does not set a term, and this clause does not purport to set out those substantive obligations. RULE_001 (liability) concerns capping liability and does not apply to a duration clause. No other clauses were supplied, so the substantive confidentiality obligations cannot be checked here. Because no retrieved rule applies to this clause, it is Not Assessed and the risk level is Unclear.",
+      "suggested_redline": null,
+      "negotiation_action": "No playbook-based action. The supplied rules do not address the length of confidentiality obligations, so no change is proposed on this clause.",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_003",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_003 - Confidentiality\nPolicy: Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.\nRed flags:\n- No confidentiality obligations\n- Unrestricted disclosure rights\n- No safeguards or return/deletion obligations\nPreferred wording: The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Broad disclosure to affiliates or subcontractors without controls."
+        },
+        {
+          "rule_id": "RULE_001",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_001 - Liability\nPolicy: Vendor liability should generally be capped at fees paid or payable during the 12 months preceding the event giving rise to the claim. Any exception requires legal approval.\nRed flags:\n- Unlimited liability\n- No financial liability cap\n- Broad carve-outs from the cap\nPreferred wording: The aggregate liability of either party shall not exceed the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise to the claim, except for exclusions expressly approved in writing by ABC's legal team.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Vendor rejects a reasonable cap or requests broad uncapped liability."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_005",
+      "heading": "Return of Information",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "5. Return of Information\nUpon written request, the receiving party shall return or delete confidential information, subject to routine backup retention.",
+      "risk_level": "Low",
+      "compliance_status": "Compliant",
+      "applicable_rule_ids": [
+        "RULE_003"
+      ],
+      "explanation": "The clause addresses the return/deletion obligation for confidential information upon written request, which satisfies RULE_003's red flag for missing return/deletion obligations. The exception for routine backup retention is not explicitly addressed in the playbook but is a common commercial practice. The clause does not cover safeguards or disclosure restrictions, but those are not the purpose of this specific clause; they would be addressed in a broader confidentiality clause.",
+      "suggested_redline": null,
+      "negotiation_action": "Accept",
+      "requires_legal_review": false,
+      "evidence": [
+        {
+          "rule_id": "RULE_003",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_003 - Confidentiality\nPolicy: Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.\nRed flags:\n- No confidentiality obligations\n- Unrestricted disclosure rights\n- No safeguards or return/deletion obligations\nPreferred wording: The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Broad disclosure to affiliates or subcontractors without controls."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    }
+  ],
+  "cross_clause_findings": [],
+  "negotiation_strategies": [
+    {
+      "clause_id": "CLAUSE_001",
+      "rule_id": "RULE_003",
+      "preferred_position": "Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.",
+      "preferred_wording": "Confidential Information means any business, technical, financial and operational information disclosed by either party, and the receiving party shall protect such Confidential Information using reasonable safeguards and shall not disclose it except to its authorised representatives who have a need to know and are bound by confidentiality obligations at least as protective as these terms.",
+      "fallback_position": "Fallback position requires legal approval.",
+      "escalation_conditions": "Escalate if the vendor rejects the preferred position or requests an exception. Playbook escalation trigger: Broad disclosure to affiliates or subcontractors without controls.",
+      "walk_away_conditions": "No automatic walk-away decision; obtain legal approval.",
+      "rationale": "The clause only defines Confidential Information but imposes no obligations to protect it or limit disclosure to authorised representatives with a need to know, violating RULE_003's requirement for confidentiality duties and safeguards.",
+      "requires_legal_review": true
+    },
+    {
+      "clause_id": "CLAUSE_002",
+      "rule_id": "RULE_003",
+      "preferred_position": "Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.",
+      "preferred_wording": "The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.",
+      "fallback_position": "Fallback position requires legal approval.",
+      "escalation_conditions": "Escalate if the vendor rejects the preferred position or requests an exception. Playbook escalation trigger: Broad disclosure to affiliates or subcontractors without controls.",
+      "walk_away_conditions": "No automatic walk-away decision; obtain legal approval.",
+      "rationale": "RULE_003 applies to this confidentiality clause. The clause requires the receiving party to use reasonable care and limits disclosure to authorised representatives with a need to know, which aligns with part of the policy. However, it does not require those authorised representatives to be bound by confidentiality obligations at least as protective as the clause, which is required by RULE_003.",
+      "requires_legal_review": false
+    },
+    {
+      "clause_id": "CLAUSE_003",
+      "rule_id": "RULE_003",
+      "preferred_position": "Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.",
+      "preferred_wording": "Disclosure is permitted only as required by law, provided that notice is given where legally permitted and that any disclosed information is limited to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.",
+      "fallback_position": "Fallback position requires legal approval.",
+      "escalation_conditions": "Escalate if the vendor rejects the preferred position or requests an exception. Playbook escalation trigger: Broad disclosure to affiliates or subcontractors without controls.",
+      "walk_away_conditions": "No automatic walk-away decision; obtain legal approval.",
+      "rationale": "The clause permits disclosures required by law without requiring confidentiality obligations, need-to-know restrictions, or safeguards, violating RULE_003 which mandates that disclosures be limited to authorised representatives with need to know and subject to equivalent confidentiality duties.",
+      "requires_legal_review": true
+    }
+  ],
+  "disclaimer": "AI-assisted preliminary review only. Final decisions require qualified legal review."
+}

@@ -1,0 +1,17 @@
+MUTUAL NON-DISCLOSURE AGREEMENT
+Between ABC Technologies and XYZ Solutions
+
+1. Definition of Confidential Information
+Confidential Information includes business, technical, financial and operational information disclosed by either party.
+
+2. Confidentiality Obligations
+The receiving party shall use reasonable care to protect confidential information and shall not disclose it except to authorised representatives who need to know.
+
+3. Permitted Disclosures
+Disclosure is permitted where required by law, provided notice is given where legally permitted.
+
+4. Duration
+Confidentiality obligations continue for three years after disclosure.
+
+5. Return of Information
+Upon written request, the receiving party shall return or delete confidential information, subject to routine backup retention.
