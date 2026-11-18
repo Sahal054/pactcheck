@@ -299,7 +299,7 @@ export default function Dashboard() {
         </section>
       </div>
 
-      {report && <ReviewReport report={report} />}
+      {report && <ReviewReport onReportUpdate={setReport} report={report}/>}
     </>
   );
 }

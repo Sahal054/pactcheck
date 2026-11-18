@@ -1,0 +1,1060 @@
+{
+  "review_id": "7af608b1d3ba45ef9c3dcb95315053c4",
+  "contract_path": "data/contracts/9b20614010964afb9faf203cd1a82a12_Sample_High_Risk_MSA.txt",
+  "document_type": "MSA",
+  "total_clauses": 7,
+  "risk_summary": {
+    "High": 5,
+    "Medium": 0,
+    "Low": 2,
+    "Unclear": 0
+  },
+  "clauses": [
+    {
+      "clause_id": "CLAUSE_001",
+      "clause_number": "1",
+      "heading": "Scope of Services",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "1. Scope of Services\nVendor shall provide software implementation and support services described in the applicable statement of work.",
+      "risk_level": "Low",
+      "compliance_status": "Compliant",
+      "applicable_rule_ids": [],
+      "explanation": "CLAUSE_001 is a scope clause that simply describes the services Vendor will provide (software implementation and support services per the applicable statement of work). None of the retrieved playbook rules (RULE_002 intellectual property, RULE_003 confidentiality, RULE_005 indemnification) impose obligations on a scope-of-services clause. Any IP, confidentiality, or indemnification concerns would be assessed against the specific clauses addressing those topics (e.g., CLAUSE_004, CLAUSE_005, CLAUSE_006), not against this clause. This clause contains no non-compliant terms.",
+      "suggested_redline": null,
+      "redline_status": "pending",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "1. Scope of Services\nVendor shall provide software implementation and support services described in the applicable statement of work."
+        }
+      ],
+      "negotiation_action": "Accept as drafted",
+      "counterparty_pushback_email": null,
+      "requires_legal_review": false,
+      "evidence": [
+        {
+          "rule_id": "RULE_002",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_002 - Intellectual Property\nPolicy: Deliverables specifically created for ABC under the agreement should be assigned to ABC, subject to clearly identified vendor background IP.\nRed flags:\n- Vendor owns all project deliverables\n- No assignment of newly created IP\n- Broad licence-back without restrictions\nPreferred wording: All intellectual property rights in deliverables specifically created for ABC under this Agreement shall vest in ABC upon payment of applicable fees. Vendor retains ownership of its pre-existing materials, subject to a licence sufficient for ABC to use the deliverables.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Vendor refuses assignment of bespoke deliverables."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_002",
+      "clause_number": "2",
+      "heading": "Fees and Payment",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "2. Fees and Payment\nABC shall pay undisputed invoices within thirty days of receipt.",
+      "risk_level": "Low",
+      "compliance_status": "Compliant",
+      "applicable_rule_ids": [],
+      "explanation": "The clause 'ABC shall pay undisputed invoices within thirty days of receipt' is a standard payment term. None of the retrieved playbook rules (RULE_004 termination, RULE_001 liability cap, RULE_002 IP assignment) are triggered or contradicted by this clause. It contains no red flags related to termination rights, uncapped liability, or IP ownership.",
+      "suggested_redline": null,
+      "redline_status": "pending",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "2. Fees and Payment\nABC shall pay undisputed invoices within thirty days of receipt."
+        }
+      ],
+      "negotiation_action": "Accept as drafted",
+      "counterparty_pushback_email": null,
+      "requires_legal_review": false,
+      "evidence": [
+        {
+          "rule_id": "RULE_004",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_004 - Termination\nPolicy: ABC should have a right to terminate for material breach if the breach is not cured within 30 days after written notice.\nRed flags:\n- No termination right for material breach\n- Vendor has unrestricted termination rights\n- No transition or data-return obligations\nPreferred wording: Either party may terminate this Agreement if the other party commits a material breach and fails to cure it within thirty (30) days after written notice.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Termination restrictions prevent ABC from responding to material service failure."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_003",
+      "clause_number": "3",
+      "heading": "Limitation of Liability",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "3. Limitation of Liability\nNotwithstanding anything in this Agreement, the Vendor shall have unlimited liability for all claims, damages, losses and expenses arising out of or in connection with the services.",
+      "risk_level": "High",
+      "compliance_status": "Non-Compliant",
+      "applicable_rule_ids": [
+        "RULE_001"
+      ],
+      "explanation": "The clause imposes unlimited liability on the Vendor, which directly violates RULE_001 that requires a liability cap based on fees paid in the prior 12 months and mandates legal approval for any exception.",
+      "suggested_redline": "The aggregate liability of either party shall not exceed the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise to the claim, except for exclusions expressly approved in writing by ABC's legal team.",
+      "redline_status": "accepted",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "3. Limitation of Liability\n"
+        },
+        {
+          "type": "delete",
+          "text": "Notwithstanding"
+        },
+        {
+          "type": "insert",
+          "text": "The"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "anything"
+        },
+        {
+          "type": "insert",
+          "text": "aggregate liability of either party shall not exceed the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise to the claim, except for exclusions expressly approved"
+        },
+        {
+          "type": "equal",
+          "text": " in "
+        },
+        {
+          "type": "delete",
+          "text": "this"
+        },
+        {
+          "type": "insert",
+          "text": "writing"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "Agreement,"
+        },
+        {
+          "type": "insert",
+          "text": "by"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "the"
+        },
+        {
+          "type": "insert",
+          "text": "ABC's"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "Vendor"
+        },
+        {
+          "type": "insert",
+          "text": "legal"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "shall have unlimited liability for all claims, damages, losses and expenses arising out of or in connection with the services."
+        },
+        {
+          "type": "insert",
+          "text": "team."
+        }
+      ],
+      "negotiation_action": "Negotiate removal of unlimited liability and insertion of a capped liability provision per RULE_001.",
+      "counterparty_pushback_email": "We need to align with our standard limitation of liability policy, which caps vendor liability to fees paid in the prior 12 months and requires legal approval for any exception; unlimited liability is not permissible.",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_001",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_001 - Liability\nPolicy: Vendor liability should generally be capped at fees paid or payable during the 12 months preceding the event giving rise to the claim. Any exception requires legal approval.\nRed flags:\n- Unlimited liability\n- No financial liability cap\n- Broad carve-outs from the cap\nPreferred wording: The aggregate liability of either party shall not exceed the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise to the claim, except for exclusions expressly approved in writing by ABC's legal team.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Vendor rejects a reasonable cap or requests broad uncapped liability."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_004",
+      "clause_number": "4",
+      "heading": "Intellectual Property",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "4. Intellectual Property\nAll deliverables, including work specifically developed and paid for by ABC, shall remain the exclusive property of XYZ Solutions. ABC receives a limited, revocable licence for internal use.",
+      "risk_level": "High",
+      "compliance_status": "Non-Compliant",
+      "applicable_rule_ids": [
+        "RULE_002"
+      ],
+      "explanation": "The clause is not compliant with RULE_002. It states that all deliverables, including ABC-developed work, remain the exclusive property of the vendor and grants only a limited, revocable licence. The policy requires that deliverables specifically created for ABC be assigned to ABC, subject to clearly identified vendor background IP. The clause therefore triggers the playbook red flags: vendor owns all project deliverables and no assignment of newly created IP.",
+      "suggested_redline": "All intellectual property rights in deliverables specifically created for ABC under this Agreement shall vest in ABC upon payment of applicable fees. Vendor retains ownership of its pre-existing materials, subject to a licence sufficient for ABC to use the deliverables.",
+      "redline_status": "accepted",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "4. Intellectual Property\n"
+        },
+        {
+          "type": "equal",
+          "text": "All "
+        },
+        {
+          "type": "delete",
+          "text": "deliverables,"
+        },
+        {
+          "type": "insert",
+          "text": "intellectual"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "including"
+        },
+        {
+          "type": "insert",
+          "text": "property"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "work"
+        },
+        {
+          "type": "insert",
+          "text": "rights in deliverables"
+        },
+        {
+          "type": "equal",
+          "text": " specifically "
+        },
+        {
+          "type": "delete",
+          "text": "developed and paid"
+        },
+        {
+          "type": "insert",
+          "text": "created"
+        },
+        {
+          "type": "equal",
+          "text": " for "
+        },
+        {
+          "type": "delete",
+          "text": "by"
+        },
+        {
+          "type": "insert",
+          "text": "ABC"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "ABC,"
+        },
+        {
+          "type": "insert",
+          "text": "under this Agreement"
+        },
+        {
+          "type": "equal",
+          "text": " shall "
+        },
+        {
+          "type": "delete",
+          "text": "remain"
+        },
+        {
+          "type": "insert",
+          "text": "vest in ABC upon payment of applicable fees. Vendor retains ownership of its pre-existing materials, subject to a licence sufficient for ABC to use"
+        },
+        {
+          "type": "equal",
+          "text": " the "
+        },
+        {
+          "type": "delete",
+          "text": "exclusive property of XYZ Solutions. ABC receives a limited, revocable licence for internal use."
+        },
+        {
+          "type": "insert",
+          "text": "deliverables."
+        }
+      ],
+      "negotiation_action": "Request that the vendor accept assignment of bespoke deliverables to ABC, subject to identified vendor background IP, and push back on vendor ownership of project deliverables.",
+      "counterparty_pushback_email": "We respectfully request that the Intellectual Property clause be revised so that deliverables specifically created for ABC vest in ABC upon payment of applicable fees, subject to clearly identified vendor background IP, as required by ABC's policy. This protects ABC's ownership of bespoke work while preserving the vendor's licensed background materials.",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_002",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_002 - Intellectual Property\nPolicy: Deliverables specifically created for ABC under the agreement should be assigned to ABC, subject to clearly identified vendor background IP.\nRed flags:\n- Vendor owns all project deliverables\n- No assignment of newly created IP\n- Broad licence-back without restrictions\nPreferred wording: All intellectual property rights in deliverables specifically created for ABC under this Agreement shall vest in ABC upon payment of applicable fees. Vendor retains ownership of its pre-existing materials, subject to a licence sufficient for ABC to use the deliverables.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Vendor refuses assignment of bespoke deliverables."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_005",
+      "clause_number": "5",
+      "heading": "Confidentiality",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "5. Confidentiality\nVendor may disclose ABC information to any affiliate, subcontractor or business partner at its discretion without prior notice or written confidentiality commitments.",
+      "risk_level": "High",
+      "compliance_status": "Non-Compliant",
+      "applicable_rule_ids": [
+        "RULE_003"
+      ],
+      "explanation": "The clause permits Vendor to disclose ABC information to any affiliate, subcontractor or business partner at its discretion without prior notice or written confidentiality commitments. This triggers RULE_003 red flags for unrestricted disclosure rights, absence of confidentiality obligations on downstream recipients, and lack of safeguards.",
+      "suggested_redline": "The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.",
+      "redline_status": "accepted",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "5. Confidentiality\n"
+        },
+        {
+          "type": "delete",
+          "text": "Vendor"
+        },
+        {
+          "type": "insert",
+          "text": "The"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "may"
+        },
+        {
+          "type": "insert",
+          "text": "receiving party shall protect confidential information using reasonable safeguards and shall not"
+        },
+        {
+          "type": "equal",
+          "text": " disclose "
+        },
+        {
+          "type": "delete",
+          "text": "ABC"
+        },
+        {
+          "type": "insert",
+          "text": "it"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "information"
+        },
+        {
+          "type": "insert",
+          "text": "except"
+        },
+        {
+          "type": "equal",
+          "text": " to "
+        },
+        {
+          "type": "delete",
+          "text": "any"
+        },
+        {
+          "type": "insert",
+          "text": "authorised"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "affiliate,"
+        },
+        {
+          "type": "insert",
+          "text": "representatives"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "subcontractor"
+        },
+        {
+          "type": "insert",
+          "text": "who"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "or"
+        },
+        {
+          "type": "insert",
+          "text": "need"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "business"
+        },
+        {
+          "type": "insert",
+          "text": "to"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "partner"
+        },
+        {
+          "type": "insert",
+          "text": "know and are bound by confidentiality obligations"
+        },
+        {
+          "type": "equal",
+          "text": " at "
+        },
+        {
+          "type": "delete",
+          "text": "its"
+        },
+        {
+          "type": "insert",
+          "text": "least"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "discretion"
+        },
+        {
+          "type": "insert",
+          "text": "as"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "without"
+        },
+        {
+          "type": "insert",
+          "text": "protective"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "prior"
+        },
+        {
+          "type": "insert",
+          "text": "as"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "notice"
+        },
+        {
+          "type": "insert",
+          "text": "these"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "or written confidentiality commitments."
+        },
+        {
+          "type": "insert",
+          "text": "terms."
+        }
+      ],
+      "negotiation_action": "Reject unrestricted disclosure rights and require confidentiality language limiting disclosure to authorized representatives bound by equivalent obligations.",
+      "counterparty_pushback_email": "Our confidentiality policy requires ABC information to be shared only with authorized representatives who need to know and are bound by equivalent confidentiality duties. We need to replace the unrestricted disclosure language with standard safeguards before we can proceed.",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_003",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_003 - Confidentiality\nPolicy: Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.\nRed flags:\n- No confidentiality obligations\n- Unrestricted disclosure rights\n- No safeguards or return/deletion obligations\nPreferred wording: The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Broad disclosure to affiliates or subcontractors without controls."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_006",
+      "clause_number": "6",
+      "heading": "Indemnification",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "6. Indemnification\nVendor shall indemnify ABC against third-party claims arising from Vendor negligence and IP infringement. These indemnification obligations are expressly excluded from and shall not be subject to any limitation of liability or financial cap in this Agreement.",
+      "risk_level": "High",
+      "compliance_status": "Non-Compliant",
+      "applicable_rule_ids": [
+        "RULE_005",
+        "RULE_001"
+      ],
+      "explanation": "Clause 6 fails RULE_005 (indemnification) by omitting the required 'hold harmless' language, missing 'wilful misconduct', and expressly excluding indemnification obligations from liability and financial caps; it also breaches RULE_001 (liability) by imposing no cap and without the required fee\u2011payment basis, and any exception requires legal approval. The current draft therefore leaves ABC exposed to uncapped liability and improperly carves out its indemnification duties.",
+      "suggested_redline": "Vendor shall indemnify and hold harmless ABC Technologies against third-party claims arising from Vendor's negligence, wilful misconduct, or infringement of third-party intellectual property rights. The aggregate liability of either party shall not exceed the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise to the claim, except for exclusions expressly approved in writing by ABC's legal team.",
+      "redline_status": "accepted",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "6. Indemnification\n"
+        },
+        {
+          "type": "equal",
+          "text": "Vendor shall indemnify "
+        },
+        {
+          "type": "insert",
+          "text": "and hold harmless "
+        },
+        {
+          "type": "equal",
+          "text": "ABC"
+        },
+        {
+          "type": "insert",
+          "text": " Technologies"
+        },
+        {
+          "type": "equal",
+          "text": " against third-party claims arising from "
+        },
+        {
+          "type": "delete",
+          "text": "Vendor"
+        },
+        {
+          "type": "insert",
+          "text": "Vendor's"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "negligence"
+        },
+        {
+          "type": "insert",
+          "text": "negligence,"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "and"
+        },
+        {
+          "type": "insert",
+          "text": "wilful"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "IP"
+        },
+        {
+          "type": "insert",
+          "text": "misconduct,"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "infringement."
+        },
+        {
+          "type": "insert",
+          "text": "or"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "These"
+        },
+        {
+          "type": "insert",
+          "text": "infringement"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "indemnification"
+        },
+        {
+          "type": "insert",
+          "text": "of"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "obligations"
+        },
+        {
+          "type": "insert",
+          "text": "third-party"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "are"
+        },
+        {
+          "type": "insert",
+          "text": "intellectual"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "expressly"
+        },
+        {
+          "type": "insert",
+          "text": "property"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "excluded"
+        },
+        {
+          "type": "insert",
+          "text": "rights."
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "from"
+        },
+        {
+          "type": "insert",
+          "text": "The"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "and"
+        },
+        {
+          "type": "insert",
+          "text": "aggregate liability of either party"
+        },
+        {
+          "type": "equal",
+          "text": " shall not "
+        },
+        {
+          "type": "delete",
+          "text": "be"
+        },
+        {
+          "type": "insert",
+          "text": "exceed"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "subject"
+        },
+        {
+          "type": "insert",
+          "text": "the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise"
+        },
+        {
+          "type": "equal",
+          "text": " to "
+        },
+        {
+          "type": "delete",
+          "text": "any"
+        },
+        {
+          "type": "insert",
+          "text": "the"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "limitation"
+        },
+        {
+          "type": "insert",
+          "text": "claim,"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "of"
+        },
+        {
+          "type": "insert",
+          "text": "except"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "liability"
+        },
+        {
+          "type": "insert",
+          "text": "for"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "or"
+        },
+        {
+          "type": "insert",
+          "text": "exclusions"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "financial"
+        },
+        {
+          "type": "insert",
+          "text": "expressly"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "cap"
+        },
+        {
+          "type": "insert",
+          "text": "approved"
+        },
+        {
+          "type": "equal",
+          "text": " in "
+        },
+        {
+          "type": "delete",
+          "text": "this"
+        },
+        {
+          "type": "insert",
+          "text": "writing"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "Agreement."
+        },
+        {
+          "type": "insert",
+          "text": "by ABC's legal team."
+        }
+      ],
+      "negotiation_action": "Submit the revised Clause 6 to ABC Legal for approval and obtain written sign\u2011off before execution; coordinate with the vendor to accept the updated indemnification and liability\u2011cap terms.",
+      "counterparty_pushback_email": "Subject: Redline Request \u2013 Clause 6 Indemnification\nDear Vendor Legal Counsel,\nPer ABC policy (RULE_005 & RULE_001), Clause 6 must contain 'hold harmless' language, cover 'wilful misconduct', and impose a liability cap based on fees paid with any exception requiring prior legal approval; the current draft excludes indemnification from liability limits and omits 'wilful misconduct', creating non\u2011compliance. Please review the attached proposed wording and advise whether to proceed or adjust.",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_005",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_005 - Indemnification\nPolicy: Vendor should indemnify ABC against third-party claims arising from vendor negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nRed flags:\n- No vendor indemnification\n- IP infringement excluded\n- Indemnification obligations broadly excluded from liability limits without approval\nPreferred wording: Vendor shall indemnify and hold harmless ABC Technologies against third-party claims arising from Vendor's negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Indemnity scope or cap treatment is materially narrowed."
+        },
+        {
+          "rule_id": "RULE_001",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_001 - Liability\nPolicy: Vendor liability should generally be capped at fees paid or payable during the 12 months preceding the event giving rise to the claim. Any exception requires legal approval.\nRed flags:\n- Unlimited liability\n- No financial liability cap\n- Broad carve-outs from the cap\nPreferred wording: The aggregate liability of either party shall not exceed the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise to the claim, except for exclusions expressly approved in writing by ABC's legal team.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Vendor rejects a reasonable cap or requests broad uncapped liability."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_007",
+      "clause_number": "7",
+      "heading": "Governing Law",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "7. Governing Law\nThis Agreement shall be governed by the laws of a jurisdiction selected by Vendor after execution.",
+      "risk_level": "High",
+      "compliance_status": "Non-Compliant",
+      "applicable_rule_ids": [
+        "RULE_006"
+      ],
+      "explanation": "The clause permits Vendor to select the governing law after execution, meaning ABC has no agreed, reviewed, or acceptable jurisdiction at signing. This directly conflicts with RULE_006, which requires governing law and dispute forum to be acceptable to ABC and approved by ABC Legal for the transaction.",
+      "suggested_redline": "This Agreement shall be governed by the laws of the jurisdiction mutually agreed by the parties in writing and approved by ABC's legal team, and the parties submit to the exclusive jurisdiction of the courts of that jurisdiction.",
+      "redline_status": "accepted",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "7. Governing Law\n"
+        },
+        {
+          "type": "equal",
+          "text": "This Agreement shall be governed by the laws of "
+        },
+        {
+          "type": "delete",
+          "text": "a"
+        },
+        {
+          "type": "insert",
+          "text": "the"
+        },
+        {
+          "type": "equal",
+          "text": " jurisdiction "
+        },
+        {
+          "type": "delete",
+          "text": "selected"
+        },
+        {
+          "type": "insert",
+          "text": "mutually agreed"
+        },
+        {
+          "type": "equal",
+          "text": " by "
+        },
+        {
+          "type": "delete",
+          "text": "Vendor"
+        },
+        {
+          "type": "insert",
+          "text": "the"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "after"
+        },
+        {
+          "type": "insert",
+          "text": "parties"
+        },
+        {
+          "type": "equal",
+          "text": " "
+        },
+        {
+          "type": "delete",
+          "text": "execution."
+        },
+        {
+          "type": "insert",
+          "text": "in writing and approved by ABC's legal team, and the parties submit to the exclusive jurisdiction of the courts of that jurisdiction."
+        }
+      ],
+      "negotiation_action": "Escalate to ABC Legal and require an ABC-approved governing law and forum before execution.",
+      "counterparty_pushback_email": "ABC's legal policy requires that the governing law and dispute forum be acceptable to ABC and approved by ABC Legal for the transaction. We therefore need to replace Vendor's unilateral post-execution selection with a mutually agreed jurisdiction approved by ABC Legal.",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_006",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_006 - Governing Law\nPolicy: Governing law and dispute forum must be acceptable to ABC and reviewed for the transaction. The playbook does not designate a universally approved jurisdiction.\nRed flags:\n- Unfamiliar or commercially impractical forum\n- Conflicting governing law and dispute resolution provisions\nPreferred wording: Governing law and dispute resolution wording must be approved by ABC's legal team for the relevant transaction.\nFallback wording: No pre-approved fallback. Legal approval required.\nApplicable documents: NDA, MSA\nEscalation: Any non-standard jurisdiction or exclusive foreign forum."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    }
+  ],
+  "cross_clause_findings": [
+    {
+      "finding_id": "CROSS_001",
+      "related_clause_ids": [
+        "CLAUSE_005"
+      ],
+      "risk_level": "Medium",
+      "relationship": "Confidentiality without return/deletion",
+      "explanation": "Confidentiality obligations exist but no clause covers return or deletion of confidential information.",
+      "recommendation": "Add a return/deletion clause, with any backup-retention carve-out limited in scope and duration.",
+      "requires_legal_review": true,
+      "basis": "Deterministic keyword dependency check; confirm against the full document."
+    },
+    {
+      "finding_id": "CROSS_002",
+      "related_clause_ids": [
+        "CLAUSE_003",
+        "CLAUSE_006"
+      ],
+      "risk_level": "Medium",
+      "relationship": "Liability clause without indemnification",
+      "explanation": "A liability clause exists but the agreement has no indemnification clause.",
+      "recommendation": "Confirm whether vendor indemnification is required by the playbook and add it if so.",
+      "requires_legal_review": true,
+      "basis": "Deterministic keyword dependency check; confirm against the full document."
+    }
+  ],
+  "negotiation_strategies": [
+    {
+      "clause_id": "CLAUSE_003",
+      "rule_id": "RULE_001",
+      "preferred_position": "Vendor liability should generally be capped at fees paid or payable during the 12 months preceding the event giving rise to the claim. Any exception requires legal approval.",
+      "preferred_wording": "The aggregate liability of either party shall not exceed the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise to the claim, except for exclusions expressly approved in writing by ABC's legal team.",
+      "fallback_position": "Fallback position requires legal approval.",
+      "escalation_conditions": "Escalate if the vendor rejects the preferred position or requests an exception. Playbook escalation trigger: Vendor rejects a reasonable cap or requests broad uncapped liability.",
+      "walk_away_conditions": "No automatic walk-away decision; obtain legal approval.",
+      "rationale": "The clause imposes unlimited liability on the Vendor, which directly violates RULE_001 that requires a liability cap based on fees paid in the prior 12 months and mandates legal approval for any exception.",
+      "requires_legal_review": true
+    },
+    {
+      "clause_id": "CLAUSE_004",
+      "rule_id": "RULE_002",
+      "preferred_position": "Deliverables specifically created for ABC under the agreement should be assigned to ABC, subject to clearly identified vendor background IP.",
+      "preferred_wording": "All intellectual property rights in deliverables specifically created for ABC under this Agreement shall vest in ABC upon payment of applicable fees. Vendor retains ownership of its pre-existing materials, subject to a licence sufficient for ABC to use the deliverables.",
+      "fallback_position": "Fallback position requires legal approval.",
+      "escalation_conditions": "Escalate if the vendor rejects the preferred position or requests an exception. Playbook escalation trigger: Vendor refuses assignment of bespoke deliverables.",
+      "walk_away_conditions": "No automatic walk-away decision; obtain legal approval.",
+      "rationale": "The clause is not compliant with RULE_002. It states that all deliverables, including ABC-developed work, remain the exclusive property of the vendor and grants only a limited, revocable licence. The policy requires that deliverables specifically created for ABC be assigned to ABC, subject to clearly identified vendor background IP. The clause therefore triggers the playbook red flags: vendor owns all project deliverables and no assignment of newly created IP.",
+      "requires_legal_review": true
+    },
+    {
+      "clause_id": "CLAUSE_005",
+      "rule_id": "RULE_003",
+      "preferred_position": "Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.",
+      "preferred_wording": "The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.",
+      "fallback_position": "Fallback position requires legal approval.",
+      "escalation_conditions": "Escalate if the vendor rejects the preferred position or requests an exception. Playbook escalation trigger: Broad disclosure to affiliates or subcontractors without controls.",
+      "walk_away_conditions": "No automatic walk-away decision; obtain legal approval.",
+      "rationale": "The clause permits Vendor to disclose ABC information to any affiliate, subcontractor or business partner at its discretion without prior notice or written confidentiality commitments. This triggers RULE_003 red flags for unrestricted disclosure rights, absence of confidentiality obligations on downstream recipients, and lack of safeguards.",
+      "requires_legal_review": true
+    },
+    {
+      "clause_id": "CLAUSE_006",
+      "rule_id": "RULE_005",
+      "preferred_position": "Vendor should indemnify ABC against third-party claims arising from vendor negligence, wilful misconduct, or infringement of third-party intellectual property rights.",
+      "preferred_wording": "Vendor shall indemnify and hold harmless ABC Technologies against third-party claims arising from Vendor's negligence, wilful misconduct, or infringement of third-party intellectual property rights. The aggregate liability of either party shall not exceed the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise to the claim, except for exclusions expressly approved in writing by ABC's legal team.",
+      "fallback_position": "Fallback position requires legal approval.",
+      "escalation_conditions": "Escalate if the vendor rejects the preferred position or requests an exception. Playbook escalation trigger: Indemnity scope or cap treatment is materially narrowed.",
+      "walk_away_conditions": "No automatic walk-away decision; obtain legal approval.",
+      "rationale": "Clause 6 fails RULE_005 (indemnification) by omitting the required 'hold harmless' language, missing 'wilful misconduct', and expressly excluding indemnification obligations from liability and financial caps; it also breaches RULE_001 (liability) by imposing no cap and without the required fee\u2011payment basis, and any exception requires legal approval. The current draft therefore leaves ABC exposed to uncapped liability and improperly carves out its indemnification duties.",
+      "requires_legal_review": true
+    },
+    {
+      "clause_id": "CLAUSE_007",
+      "rule_id": "RULE_006",
+      "preferred_position": "Governing law and dispute forum must be acceptable to ABC and reviewed for the transaction. The playbook does not designate a universally approved jurisdiction.",
+      "preferred_wording": "This Agreement shall be governed by the laws of the jurisdiction mutually agreed by the parties in writing and approved by ABC's legal team, and the parties submit to the exclusive jurisdiction of the courts of that jurisdiction.",
+      "fallback_position": "No pre-approved fallback. Legal approval required.",
+      "escalation_conditions": "Escalate if the vendor rejects the preferred position or requests an exception. Playbook escalation trigger: Any non-standard jurisdiction or exclusive foreign forum.",
+      "walk_away_conditions": "No automatic walk-away decision; obtain legal approval.",
+      "rationale": "The clause permits Vendor to select the governing law after execution, meaning ABC has no agreed, reviewed, or acceptable jurisdiction at signing. This directly conflicts with RULE_006, which requires governing law and dispute forum to be acceptable to ABC and approved by ABC Legal for the transaction.",
+      "requires_legal_review": true
+    }
+  ],
+  "disclaimer": "AI-assisted preliminary review only. Final decisions require qualified legal review."
+}

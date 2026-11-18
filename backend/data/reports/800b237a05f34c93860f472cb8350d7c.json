@@ -1,0 +1,322 @@
+{
+  "review_id": "800b237a05f34c93860f472cb8350d7c",
+  "contract_path": "data/contracts/fdc6a75a178e4a1ca0d2b059d8b87cc7_Sample_MSA.txt",
+  "document_type": "MSA",
+  "total_clauses": 8,
+  "risk_summary": {
+    "High": 1,
+    "Medium": 0,
+    "Low": 5,
+    "Unclear": 2
+  },
+  "clauses": [
+    {
+      "clause_id": "CLAUSE_001",
+      "clause_number": "1",
+      "heading": "Scope of Services",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "Vendor will provide services described in mutually agreed statements of work.",
+      "risk_level": "Unclear",
+      "compliance_status": "Not Assessed",
+      "applicable_rule_ids": [],
+      "explanation": "The clause defines the scope of services, which is not covered by any of the retrieved playbook rules (Indemnification, Intellectual Property, Liability). Therefore, compliance cannot be assessed based on the provided evidence.",
+      "suggested_redline": null,
+      "redline_status": "pending",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "Vendor will provide services described in mutually agreed statements of work."
+        }
+      ],
+      "negotiation_action": "Negotiate redline",
+      "counterparty_pushback_email": null,
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_005",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_005 - Indemnification\nPolicy: Vendor should indemnify ABC against third-party claims arising from vendor negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nRed flags:\n- No vendor indemnification\n- IP infringement excluded\n- Indemnification obligations broadly excluded from liability limits without approval\nPreferred wording: Vendor shall indemnify and hold harmless ABC Technologies against third-party claims arising from Vendor's negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Indemnity scope or cap treatment is materially narrowed."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_002",
+      "clause_number": "2",
+      "heading": "Fees and Payment",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "ABC will pay undisputed invoices within thirty days.",
+      "risk_level": "Unclear",
+      "compliance_status": "Not Assessed",
+      "applicable_rule_ids": [],
+      "explanation": "CLAUSE_002 is a fees/payment clause setting a 30-day payment term for undisputed invoices. None of the retrieved playbook rules (RULE_001 liability cap, RULE_002 IP assignment, RULE_004 termination for material breach) address payment timing or invoicing, and no fees/payment rule was supplied. Per instructions, this clause is not assessed against rules governing other clause types, and there is insufficient playbook evidence to rate compliance.",
+      "suggested_redline": null,
+      "redline_status": "pending",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "ABC will pay undisputed invoices within thirty days."
+        }
+      ],
+      "negotiation_action": "Negotiate redline",
+      "counterparty_pushback_email": null,
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_004",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_004 - Termination\nPolicy: ABC should have a right to terminate for material breach if the breach is not cured within 30 days after written notice.\nRed flags:\n- No termination right for material breach\n- Vendor has unrestricted termination rights\n- No transition or data-return obligations\nPreferred wording: Either party may terminate this Agreement if the other party commits a material breach and fails to cure it within thirty (30) days after written notice.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Termination restrictions prevent ABC from responding to material service failure."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_003",
+      "clause_number": "3",
+      "heading": "Limitation of Liability",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "The aggregate liability of either party shall not exceed fees paid or payable during the twelve months preceding the event giving rise to the claim.",
+      "risk_level": "Low",
+      "compliance_status": "Compliant",
+      "applicable_rule_ids": [
+        "RULE_001"
+      ],
+      "explanation": "This clause caps the aggregate liability of either party at fees paid or payable during the twelve months preceding the event giving rise to the claim, which satisfies RULE_001's policy that vendor liability be capped at 12 months of fees. There is no unlimited liability, no missing financial cap, and no carve-outs from the cap (the clause is in fact stricter than the preferred wording, which permits exclusions only with ABC legal's written approval). The omission of the phrase 'under this Agreement' and the numeral style are immaterial and do not create a red flag under the playbook. Termination (RULE_004) and indemnification (RULE_005) are addressed in separate clauses and are not the function of this clause.",
+      "suggested_redline": null,
+      "redline_status": "pending",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "The aggregate liability of either party shall not exceed fees paid or payable during the twelve months preceding the event giving rise to the claim."
+        }
+      ],
+      "negotiation_action": "No action required; the liability cap aligns with playbook policy. Optionally confirm at next renewal that 'fees' refers to fees under this Agreement, but no redline is needed now.",
+      "counterparty_pushback_email": null,
+      "requires_legal_review": false,
+      "evidence": [
+        {
+          "rule_id": "RULE_001",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_001 - Liability\nPolicy: Vendor liability should generally be capped at fees paid or payable during the 12 months preceding the event giving rise to the claim. Any exception requires legal approval.\nRed flags:\n- Unlimited liability\n- No financial liability cap\n- Broad carve-outs from the cap\nPreferred wording: The aggregate liability of either party shall not exceed the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise to the claim, except for exclusions expressly approved in writing by ABC's legal team.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Vendor rejects a reasonable cap or requests broad uncapped liability."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_004",
+      "clause_number": "4",
+      "heading": "Intellectual Property",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "All deliverables specifically developed for ABC under this Agreement shall vest in ABC upon payment. Vendor retains ownership of its pre-existing materials.",
+      "risk_level": "Low",
+      "compliance_status": "Compliant",
+      "applicable_rule_ids": [
+        "RULE_002"
+      ],
+      "explanation": "The clause assigns deliverables specifically created for ABC to ABC upon payment and limits vendor ownership to pre-existing materials, aligning with RULE_002's preferred wording and avoiding the listed red flags.",
+      "suggested_redline": null,
+      "redline_status": "pending",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "All deliverables specifically developed for ABC under this Agreement shall vest in ABC upon payment. Vendor retains ownership of its pre-existing materials."
+        }
+      ],
+      "negotiation_action": "None",
+      "counterparty_pushback_email": null,
+      "requires_legal_review": false,
+      "evidence": [
+        {
+          "rule_id": "RULE_002",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_002 - Intellectual Property\nPolicy: Deliverables specifically created for ABC under the agreement should be assigned to ABC, subject to clearly identified vendor background IP.\nRed flags:\n- Vendor owns all project deliverables\n- No assignment of newly created IP\n- Broad licence-back without restrictions\nPreferred wording: All intellectual property rights in deliverables specifically created for ABC under this Agreement shall vest in ABC upon payment of applicable fees. Vendor retains ownership of its pre-existing materials, subject to a licence sufficient for ABC to use the deliverables.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Vendor refuses assignment of bespoke deliverables."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_005",
+      "clause_number": "5",
+      "heading": "Confidentiality",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "Each party shall protect confidential information and limit disclosure to authorised representatives with a need to know.",
+      "risk_level": "High",
+      "compliance_status": "Partially Compliant",
+      "applicable_rule_ids": [
+        "RULE_003"
+      ],
+      "explanation": "Clause 005 requires parties to protect confidential information and limit disclosure to authorised representatives with a need to know, but it does not require the use of reasonable safeguards, bind the authorised recipients to at least as protective obligations, nor impose any return or deletion duties. These omissions correspond to the red flags in RULE_003 (no safeguards, no return/deletion obligations, and lack of binding equivalence for recipients).",
+      "suggested_redline": "The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.",
+      "redline_status": "pending",
+      "word_diff": [
+        {
+          "type": "delete",
+          "text": "Each party shall protect confidential information and limit disclosure to authorised representatives with a need to know."
+        },
+        {
+          "type": "equal",
+          "text": "\n\n"
+        },
+        {
+          "type": "insert",
+          "text": "The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms."
+        }
+      ],
+      "negotiation_action": "Renegotiate Clause 005 to insert the full RULE_003 confidentiality language\u2014including reasonable safeguards, binding obligations on authorised recipients, and any required return or deletion provisions\u2014and obtain legal approval before execution.",
+      "counterparty_pushback_email": "Dear Vendor Legal Counsel,\n\nPer ABC policy, the Confidentiality clause must require reasonable safeguards and bind authorized recipients to at least as protective duties; the current draft lacks these elements and therefore needs a redline before signature. Please see the proposed wording below.\n\nBest regards,\n[Your Name]",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_003",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_003 - Confidentiality\nPolicy: Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.\nRed flags:\n- No confidentiality obligations\n- Unrestricted disclosure rights\n- No safeguards or return/deletion obligations\nPreferred wording: The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Broad disclosure to affiliates or subcontractors without controls."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_006",
+      "clause_number": "6",
+      "heading": "Indemnification",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "Vendor shall indemnify ABC against third-party claims arising from Vendor negligence, wilful misconduct or infringement of third-party IP rights.",
+      "risk_level": "Low",
+      "compliance_status": "Compliant",
+      "applicable_rule_ids": [
+        "RULE_005"
+      ],
+      "explanation": "The indemnification clause matches the policy in RULE_005 exactly, with no red flags present.",
+      "suggested_redline": null,
+      "redline_status": "pending",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "Vendor shall indemnify ABC against third-party claims arising from Vendor negligence, wilful misconduct or infringement of third-party IP rights."
+        }
+      ],
+      "negotiation_action": "Accept as drafted",
+      "counterparty_pushback_email": null,
+      "requires_legal_review": false,
+      "evidence": [
+        {
+          "rule_id": "RULE_005",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_005 - Indemnification\nPolicy: Vendor should indemnify ABC against third-party claims arising from vendor negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nRed flags:\n- No vendor indemnification\n- IP infringement excluded\n- Indemnification obligations broadly excluded from liability limits without approval\nPreferred wording: Vendor shall indemnify and hold harmless ABC Technologies against third-party claims arising from Vendor's negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Indemnity scope or cap treatment is materially narrowed."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_007",
+      "clause_number": "7",
+      "heading": "Termination",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "Either party may terminate for material breach if the breach remains uncured thirty days after written notice.",
+      "risk_level": "Low",
+      "compliance_status": "Compliant",
+      "applicable_rule_ids": [
+        "RULE_004"
+      ],
+      "explanation": "The clause grants either party the right to terminate for material breach if the breach is not cured within 30 days after written notice, which exactly matches the policy in RULE_004. No red flags are present.",
+      "suggested_redline": null,
+      "redline_status": "pending",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "Either party may terminate for material breach if the breach remains uncured thirty days after written notice."
+        }
+      ],
+      "negotiation_action": "Accept as drafted",
+      "counterparty_pushback_email": null,
+      "requires_legal_review": false,
+      "evidence": [
+        {
+          "rule_id": "RULE_004",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_004 - Termination\nPolicy: ABC should have a right to terminate for material breach if the breach is not cured within 30 days after written notice.\nRed flags:\n- No termination right for material breach\n- Vendor has unrestricted termination rights\n- No transition or data-return obligations\nPreferred wording: Either party may terminate this Agreement if the other party commits a material breach and fails to cure it within thirty (30) days after written notice.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Termination restrictions prevent ABC from responding to material service failure."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    },
+    {
+      "clause_id": "CLAUSE_008",
+      "clause_number": "8",
+      "heading": "Governing Law",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "The governing law and dispute forum shall be mutually agreed in writing and approved by ABC legal.",
+      "risk_level": "Low",
+      "compliance_status": "Compliant",
+      "applicable_rule_ids": [
+        "RULE_006"
+      ],
+      "explanation": "The clause requires mutual agreement and ABC legal approval, which satisfies RULE_006's requirement that governing law and dispute forum be acceptable to ABC and reviewed. No unfamiliar or conflicting forum is indicated.",
+      "suggested_redline": null,
+      "redline_status": "pending",
+      "word_diff": [
+        {
+          "type": "equal",
+          "text": "The governing law and dispute forum shall be mutually agreed in writing and approved by ABC legal."
+        }
+      ],
+      "negotiation_action": "None",
+      "counterparty_pushback_email": null,
+      "requires_legal_review": false,
+      "evidence": [
+        {
+          "rule_id": "RULE_006",
+          "source": "c8b680cb038c4492963843d4e578d0d1_9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_006 - Governing Law\nPolicy: Governing law and dispute forum must be acceptable to ABC and reviewed for the transaction. The playbook does not designate a universally approved jurisdiction.\nRed flags:\n- Unfamiliar or commercially impractical forum\n- Conflicting governing law and dispute resolution provisions\nPreferred wording: Governing law and dispute resolution wording must be approved by ABC's legal team for the relevant transaction.\nFallback wording: No pre-approved fallback. Legal approval required.\nApplicable documents: NDA, MSA\nEscalation: Any non-standard jurisdiction or exclusive foreign forum."
+        }
+      ],
+      "analysis_mode": "openrouter"
+    }
+  ],
+  "cross_clause_findings": [
+    {
+      "finding_id": "CROSS_001",
+      "related_clause_ids": [
+        "CLAUSE_007"
+      ],
+      "risk_level": "Medium",
+      "relationship": "Termination without return/deletion",
+      "explanation": "A termination provision exists but no clause covers return or deletion of information afterwards.",
+      "recommendation": "Add a return/deletion obligation that applies on termination or expiry.",
+      "requires_legal_review": true,
+      "basis": "Deterministic keyword dependency check; confirm against the full document."
+    },
+    {
+      "finding_id": "CROSS_002",
+      "related_clause_ids": [
+        "CLAUSE_005"
+      ],
+      "risk_level": "Medium",
+      "relationship": "Confidentiality without return/deletion",
+      "explanation": "Confidentiality obligations exist but no clause covers return or deletion of confidential information.",
+      "recommendation": "Add a return/deletion clause, with any backup-retention carve-out limited in scope and duration.",
+      "requires_legal_review": true,
+      "basis": "Deterministic keyword dependency check; confirm against the full document."
+    }
+  ],
+  "negotiation_strategies": [
+    {
+      "clause_id": "CLAUSE_005",
+      "rule_id": "RULE_003",
+      "preferred_position": "Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.",
+      "preferred_wording": "The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.",
+      "fallback_position": "Fallback position requires legal approval.",
+      "escalation_conditions": "Escalate if the vendor rejects the preferred position or requests an exception. Playbook escalation trigger: Broad disclosure to affiliates or subcontractors without controls.",
+      "walk_away_conditions": "No automatic walk-away decision; obtain legal approval.",
+      "rationale": "Clause 005 requires parties to protect confidential information and limit disclosure to authorised representatives with a need to know, but it does not require the use of reasonable safeguards, bind the authorised recipients to at least as protective obligations, nor impose any return or deletion duties. These omissions correspond to the red flags in RULE_003 (no safeguards, no return/deletion obligations, and lack of binding equivalence for recipients).",
+      "requires_legal_review": true
+    }
+  ],
+  "disclaimer": "AI-assisted preliminary review only. Final decisions require qualified legal review."
+}

@@ -2,13 +2,13 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     app_env: str = "development"
-    llm_provider: str = "openrouter"  # mock | openrouter | openai
+    llm_provider: str = "mock"  # mock | openrouter | openai
     openrouter_api_key: str = ""
-    openrouter_base_url: str = "https://openrouter.ai/api/v1"
+    openrouter_base_url: str = "[https://openrouter.ai/api/v1](https://openrouter.ai/api/v1)"
     openrouter_model: str = "openrouter/free"
     openai_api_key: str = ""
-    openai_model: str = "gpt-4.1-mini"
-    embedding_provider: str = "openrouter"  # local | openrouter | openai
+    openai_model: str = "gpt-4o-mini"
+    embedding_provider: str = "local"  # local | openrouter | openai
     local_embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     openrouter_embedding_model: str = ""
     openai_embedding_model: str = "text-embedding-3-small"

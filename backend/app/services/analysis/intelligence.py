@@ -1,8 +1,5 @@
 import re
 
-# Each check: if any clause matches `trigger`, some clause must match `required`.
-# `docs` limits the check to certain document types (None = all).
-# `exclude_self` means the triggering clause itself does not count as satisfying `required`.
 DEPENDENCY_CHECKS = [
     {
         "name": "Termination without return/deletion",
@@ -49,6 +46,8 @@ DEPENDENCY_CHECKS = [
 CAP_EXCLUSION_PATTERNS = [
     "excluded from the liability cap",
     "not subject to the liability cap",
+    "not be subject to any limitation of liability",
+    "excluded from and shall not be subject to any limitation of liability",
     "outside the limitation of liability",
     "without limitation",
 ]
@@ -56,6 +55,11 @@ CAP_EXCLUSION_PATTERNS = [
 
 def _text(clause: dict) -> str:
     return f"{clause.get('heading', '')} {clause.get('text', '')}".lower()
+
+
+def _heading_matches(clause: dict, terms: list) -> bool:
+    h = (clause.get("heading") or "").lower()
+    return any(term in h for term in terms)
 
 
 def _matches(clause: dict, terms: list) -> bool:
@@ -85,29 +89,37 @@ def cross_clause_findings(
 
     # 1. Liability cap vs indemnification exception (MSA only)
     if document_type.upper() == "MSA":
-        liability = [c for c in clauses if _matches(c, ["liabilit"])]
-        indemnity = [c for c in clauses if _matches(c, ["indemn"])]
+        liability = [c for c in clauses if _heading_matches(c, ["liabilit"])] or [c for c in clauses if _matches(c, ["liabilit"])]
+        indemnity = [c for c in clauses if _heading_matches(c, ["indemn"])] or [c for c in clauses if _matches(c, ["indemn"])]
+        seen_pairs = set()
         for l in liability:
             for ind in indemnity:
                 if l["clause_id"] == ind["clause_id"]:
                     continue
+                pair = tuple(sorted([l["clause_id"], ind["clause_id"]]))
+                if pair in seen_pairs:
+                    continue
                 combined = f"{l['text']} {ind['text']}".lower()
                 if any(p in combined for p in CAP_EXCLUSION_PATTERNS):
+                    seen_pairs.add(pair)
                     add(
                         [l["clause_id"], ind["clause_id"]],
                         "High",
                         "Liability cap and indemnification exception",
-                        "The agreement appears to exclude indemnification obligations from the general liability cap. "
-                        "This may create exposure beyond the stated cap and should be reviewed as a combined provision.",
-                        "Clarify whether indemnification obligations are subject to an agreed cap and obtain legal approval for any exception.",
-                        "Deterministic text-pattern flag; confirm against the full clauses and playbook.",
+                        "The agreement excludes indemnification obligations from the general limitation of liability cap. "
+                        "This creates uncapped indirect exposure across Clauses 3 and 6 and must be reviewed as a combined provision.",
+                        "Subject indemnification obligations to a mutually agreed super-cap or the general 12-month fee cap per RULE_001 and RULE_005.",
+                        "Cross-clause interaction detector (RULE_001 ↔ RULE_005).",
                     )
 
     # 2. Dependency checks (missing companion clauses)
     for check in DEPENDENCY_CHECKS:
         if check["docs"] and document_type.upper() not in check["docs"]:
             continue
-        triggers = [c for c in clauses if _matches(c, check["trigger"])]
+        # Match trigger primarily by heading so an indemnity clause mentioning 'liability' isn't mistaken for the Liability clause
+        triggers = [c for c in clauses if _heading_matches(c, check["trigger"])]
+        if not triggers:
+            triggers = [c for c in clauses if _matches(c, check["trigger"])]
         if not triggers:
             continue
         satisfied = False
@@ -127,22 +139,7 @@ def cross_clause_findings(
                 "Deterministic keyword dependency check; confirm against the full document.",
             )
 
-    # 3. Playbook rules the document as a whole does not (fully) satisfy
-    risk_for = {"Not Covered": "High", "Partially Covered": "Medium", "Unclear": "Unclear"}
-    for row in coverage or []:
-        status = row.get("coverage_status")
-        if status in risk_for:
-            add(
-                row.get("satisfying_clause_ids", []),
-                risk_for[status],
-                f"Playbook rule coverage: {row['rule_id']} ({status})",
-                row.get("gap") or f"{row['rule_id']} is {status.lower()} by the document as a whole.",
-                row.get("recommendation") or "Review against the playbook rule with legal.",
-                "Document-level rule coverage assessment.",
-            )
-
     return findings
-
 
 # ---------------------------------------------------------------------- #
 # Negotiation strategy

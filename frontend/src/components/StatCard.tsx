@@ -6,10 +6,10 @@ interface StatCardProps {
 
 export default function StatCard({ label, value, note }: StatCardProps) {
   return (
-    <div className="statcard">
-      <span className="statlabel">{label}</span>
-      <strong className="statvalue">{value}</strong>
-      <span className="statnote">{note}</span>
+    <div className="stat">
+      <span>{label}</span>
+      <b>{value}</b>
+      <small>{note}</small>
     </div>
   );
 }
