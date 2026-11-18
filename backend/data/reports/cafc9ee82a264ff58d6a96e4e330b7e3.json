@@ -1,0 +1,226 @@
+{
+  "review_id": "cafc9ee82a264ff58d6a96e4e330b7e3",
+  "document_type": "NDA",
+  "total_clauses": 5,
+  "risk_summary": {
+    "High": 0,
+    "Medium": 0,
+    "Low": 0,
+    "Unclear": 5
+  },
+  "clauses": [
+    {
+      "clause_id": "CLAUSE_001",
+      "heading": "Definition of Confidential Information",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "1. Definition of Confidential Information\nConfidential Information includes business, technical, financial and operational information disclosed by either party.",
+      "risk_level": "Unclear",
+      "compliance_status": "Not Assessed",
+      "applicable_rule_ids": [],
+      "explanation": "Mock mode does not make a reliable policy determination. Configure a live LLM provider for AI assessment.",
+      "suggested_redline": null,
+      "negotiation_action": "Needs legal review",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_003",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_003 - Confidentiality\nPolicy: Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.\nRed flags:\n- No confidentiality obligations\n- Unrestricted disclosure rights\n- No safeguards or return/deletion obligations\nPreferred wording: The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Broad disclosure to affiliates or subcontractors without controls."
+        },
+        {
+          "rule_id": "RULE_005",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_005 - Indemnification\nPolicy: Vendor should indemnify ABC against third-party claims arising from vendor negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nRed flags:\n- No vendor indemnification\n- IP infringement excluded\n- Indemnification obligations broadly excluded from liability limits without approval\nPreferred wording: Vendor shall indemnify and hold harmless ABC Technologies against third-party claims arising from Vendor's negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Indemnity scope or cap treatment is materially narrowed."
+        },
+        {
+          "rule_id": "RULE_001",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_001 - Liability\nPolicy: Vendor liability should generally be capped at fees paid or payable during the 12 months preceding the event giving rise to the claim. Any exception requires legal approval.\nRed flags:\n- Unlimited liability\n- No financial liability cap\n- Broad carve-outs from the cap\nPreferred wording: The aggregate liability of either party shall not exceed the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise to the claim, except for exclusions expressly approved in writing by ABC's legal team.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Vendor rejects a reasonable cap or requests broad uncapped liability."
+        },
+        {
+          "rule_id": "RULE_006",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_006 - Governing Law\nPolicy: Governing law and dispute forum must be acceptable to ABC and reviewed for the transaction. The playbook does not designate a universally approved jurisdiction.\nRed flags:\n- Unfamiliar or commercially impractical forum\n- Conflicting governing law and dispute resolution provisions\nPreferred wording: Governing law and dispute resolution wording must be approved by ABC's legal team for the relevant transaction.\nFallback wording: No pre-approved fallback. Legal approval required.\nApplicable documents: NDA, MSA\nEscalation: Any non-standard jurisdiction or exclusive foreign forum."
+        },
+        {
+          "rule_id": "RULE_002",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_002 - Intellectual Property\nPolicy: Deliverables specifically created for ABC under the agreement should be assigned to ABC, subject to clearly identified vendor background IP.\nRed flags:\n- Vendor owns all project deliverables\n- No assignment of newly created IP\n- Broad licence-back without restrictions\nPreferred wording: All intellectual property rights in deliverables specifically created for ABC under this Agreement shall vest in ABC upon payment of applicable fees. Vendor retains ownership of its pre-existing materials, subject to a licence sufficient for ABC to use the deliverables.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Vendor refuses assignment of bespoke deliverables."
+        }
+      ],
+      "analysis_mode": "mock heuristic"
+    },
+    {
+      "clause_id": "CLAUSE_002",
+      "heading": "Confidentiality Obligations",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "2. Confidentiality Obligations\nThe receiving party shall use reasonable care to protect confidential information and shall not disclose it except to authorised representatives who need to know.",
+      "risk_level": "Unclear",
+      "compliance_status": "Not Assessed",
+      "applicable_rule_ids": [],
+      "explanation": "Mock mode does not make a reliable policy determination. Configure a live LLM provider for AI assessment.",
+      "suggested_redline": null,
+      "negotiation_action": "Needs legal review",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_003",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_003 - Confidentiality\nPolicy: Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.\nRed flags:\n- No confidentiality obligations\n- Unrestricted disclosure rights\n- No safeguards or return/deletion obligations\nPreferred wording: The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Broad disclosure to affiliates or subcontractors without controls."
+        },
+        {
+          "rule_id": "RULE_002",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_002 - Intellectual Property\nPolicy: Deliverables specifically created for ABC under the agreement should be assigned to ABC, subject to clearly identified vendor background IP.\nRed flags:\n- Vendor owns all project deliverables\n- No assignment of newly created IP\n- Broad licence-back without restrictions\nPreferred wording: All intellectual property rights in deliverables specifically created for ABC under this Agreement shall vest in ABC upon payment of applicable fees. Vendor retains ownership of its pre-existing materials, subject to a licence sufficient for ABC to use the deliverables.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Vendor refuses assignment of bespoke deliverables."
+        },
+        {
+          "rule_id": "RULE_001",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_001 - Liability\nPolicy: Vendor liability should generally be capped at fees paid or payable during the 12 months preceding the event giving rise to the claim. Any exception requires legal approval.\nRed flags:\n- Unlimited liability\n- No financial liability cap\n- Broad carve-outs from the cap\nPreferred wording: The aggregate liability of either party shall not exceed the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise to the claim, except for exclusions expressly approved in writing by ABC's legal team.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Vendor rejects a reasonable cap or requests broad uncapped liability."
+        },
+        {
+          "rule_id": "RULE_006",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_006 - Governing Law\nPolicy: Governing law and dispute forum must be acceptable to ABC and reviewed for the transaction. The playbook does not designate a universally approved jurisdiction.\nRed flags:\n- Unfamiliar or commercially impractical forum\n- Conflicting governing law and dispute resolution provisions\nPreferred wording: Governing law and dispute resolution wording must be approved by ABC's legal team for the relevant transaction.\nFallback wording: No pre-approved fallback. Legal approval required.\nApplicable documents: NDA, MSA\nEscalation: Any non-standard jurisdiction or exclusive foreign forum."
+        },
+        {
+          "rule_id": "RULE_005",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_005 - Indemnification\nPolicy: Vendor should indemnify ABC against third-party claims arising from vendor negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nRed flags:\n- No vendor indemnification\n- IP infringement excluded\n- Indemnification obligations broadly excluded from liability limits without approval\nPreferred wording: Vendor shall indemnify and hold harmless ABC Technologies against third-party claims arising from Vendor's negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Indemnity scope or cap treatment is materially narrowed."
+        }
+      ],
+      "analysis_mode": "mock heuristic"
+    },
+    {
+      "clause_id": "CLAUSE_003",
+      "heading": "Permitted Disclosures",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "3. Permitted Disclosures\nDisclosure is permitted where required by law, provided notice is given where legally permitted.",
+      "risk_level": "Unclear",
+      "compliance_status": "Not Assessed",
+      "applicable_rule_ids": [],
+      "explanation": "Mock mode does not make a reliable policy determination. Configure a live LLM provider for AI assessment.",
+      "suggested_redline": null,
+      "negotiation_action": "Needs legal review",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_003",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_003 - Confidentiality\nPolicy: Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.\nRed flags:\n- No confidentiality obligations\n- Unrestricted disclosure rights\n- No safeguards or return/deletion obligations\nPreferred wording: The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Broad disclosure to affiliates or subcontractors without controls."
+        },
+        {
+          "rule_id": "RULE_005",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_005 - Indemnification\nPolicy: Vendor should indemnify ABC against third-party claims arising from vendor negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nRed flags:\n- No vendor indemnification\n- IP infringement excluded\n- Indemnification obligations broadly excluded from liability limits without approval\nPreferred wording: Vendor shall indemnify and hold harmless ABC Technologies against third-party claims arising from Vendor's negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Indemnity scope or cap treatment is materially narrowed."
+        },
+        {
+          "rule_id": "RULE_002",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_002 - Intellectual Property\nPolicy: Deliverables specifically created for ABC under the agreement should be assigned to ABC, subject to clearly identified vendor background IP.\nRed flags:\n- Vendor owns all project deliverables\n- No assignment of newly created IP\n- Broad licence-back without restrictions\nPreferred wording: All intellectual property rights in deliverables specifically created for ABC under this Agreement shall vest in ABC upon payment of applicable fees. Vendor retains ownership of its pre-existing materials, subject to a licence sufficient for ABC to use the deliverables.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Vendor refuses assignment of bespoke deliverables."
+        },
+        {
+          "rule_id": "RULE_006",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_006 - Governing Law\nPolicy: Governing law and dispute forum must be acceptable to ABC and reviewed for the transaction. The playbook does not designate a universally approved jurisdiction.\nRed flags:\n- Unfamiliar or commercially impractical forum\n- Conflicting governing law and dispute resolution provisions\nPreferred wording: Governing law and dispute resolution wording must be approved by ABC's legal team for the relevant transaction.\nFallback wording: No pre-approved fallback. Legal approval required.\nApplicable documents: NDA, MSA\nEscalation: Any non-standard jurisdiction or exclusive foreign forum."
+        },
+        {
+          "rule_id": "RULE_004",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_004 - Termination\nPolicy: ABC should have a right to terminate for material breach if the breach is not cured within 30 days after written notice.\nRed flags:\n- No termination right for material breach\n- Vendor has unrestricted termination rights\n- No transition or data-return obligations\nPreferred wording: Either party may terminate this Agreement if the other party commits a material breach and fails to cure it within thirty (30) days after written notice.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Termination restrictions prevent ABC from responding to material service failure."
+        }
+      ],
+      "analysis_mode": "mock heuristic"
+    },
+    {
+      "clause_id": "CLAUSE_004",
+      "heading": "Duration",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "4. Duration\nConfidentiality obligations continue for three years after disclosure.",
+      "risk_level": "Unclear",
+      "compliance_status": "Not Assessed",
+      "applicable_rule_ids": [],
+      "explanation": "Mock mode does not make a reliable policy determination. Configure a live LLM provider for AI assessment.",
+      "suggested_redline": null,
+      "negotiation_action": "Needs legal review",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_003",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_003 - Confidentiality\nPolicy: Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.\nRed flags:\n- No confidentiality obligations\n- Unrestricted disclosure rights\n- No safeguards or return/deletion obligations\nPreferred wording: The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Broad disclosure to affiliates or subcontractors without controls."
+        },
+        {
+          "rule_id": "RULE_004",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_004 - Termination\nPolicy: ABC should have a right to terminate for material breach if the breach is not cured within 30 days after written notice.\nRed flags:\n- No termination right for material breach\n- Vendor has unrestricted termination rights\n- No transition or data-return obligations\nPreferred wording: Either party may terminate this Agreement if the other party commits a material breach and fails to cure it within thirty (30) days after written notice.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Termination restrictions prevent ABC from responding to material service failure."
+        },
+        {
+          "rule_id": "RULE_001",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_001 - Liability\nPolicy: Vendor liability should generally be capped at fees paid or payable during the 12 months preceding the event giving rise to the claim. Any exception requires legal approval.\nRed flags:\n- Unlimited liability\n- No financial liability cap\n- Broad carve-outs from the cap\nPreferred wording: The aggregate liability of either party shall not exceed the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise to the claim, except for exclusions expressly approved in writing by ABC's legal team.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Vendor rejects a reasonable cap or requests broad uncapped liability."
+        },
+        {
+          "rule_id": "RULE_002",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_002 - Intellectual Property\nPolicy: Deliverables specifically created for ABC under the agreement should be assigned to ABC, subject to clearly identified vendor background IP.\nRed flags:\n- Vendor owns all project deliverables\n- No assignment of newly created IP\n- Broad licence-back without restrictions\nPreferred wording: All intellectual property rights in deliverables specifically created for ABC under this Agreement shall vest in ABC upon payment of applicable fees. Vendor retains ownership of its pre-existing materials, subject to a licence sufficient for ABC to use the deliverables.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Vendor refuses assignment of bespoke deliverables."
+        },
+        {
+          "rule_id": "RULE_005",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_005 - Indemnification\nPolicy: Vendor should indemnify ABC against third-party claims arising from vendor negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nRed flags:\n- No vendor indemnification\n- IP infringement excluded\n- Indemnification obligations broadly excluded from liability limits without approval\nPreferred wording: Vendor shall indemnify and hold harmless ABC Technologies against third-party claims arising from Vendor's negligence, wilful misconduct, or infringement of third-party intellectual property rights.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Indemnity scope or cap treatment is materially narrowed."
+        }
+      ],
+      "analysis_mode": "mock heuristic"
+    },
+    {
+      "clause_id": "CLAUSE_005",
+      "heading": "Return of Information",
+      "page_start": 1,
+      "page_end": 1,
+      "original_text": "5. Return of Information\nUpon written request, the receiving party shall return or delete confidential information, subject to routine backup retention.",
+      "risk_level": "Unclear",
+      "compliance_status": "Not Assessed",
+      "applicable_rule_ids": [],
+      "explanation": "Mock mode does not make a reliable policy determination. Configure a live LLM provider for AI assessment.",
+      "suggested_redline": null,
+      "negotiation_action": "Needs legal review",
+      "requires_legal_review": true,
+      "evidence": [
+        {
+          "rule_id": "RULE_003",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_003 - Confidentiality\nPolicy: Each receiving party must protect confidential information and disclose it only to authorised representatives with a need to know, subject to equivalent confidentiality duties.\nRed flags:\n- No confidentiality obligations\n- Unrestricted disclosure rights\n- No safeguards or return/deletion obligations\nPreferred wording: The receiving party shall protect confidential information using reasonable safeguards and shall not disclose it except to authorised representatives who need to know and are bound by confidentiality obligations at least as protective as these terms.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Broad disclosure to affiliates or subcontractors without controls."
+        },
+        {
+          "rule_id": "RULE_004",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_004 - Termination\nPolicy: ABC should have a right to terminate for material breach if the breach is not cured within 30 days after written notice.\nRed flags:\n- No termination right for material breach\n- Vendor has unrestricted termination rights\n- No transition or data-return obligations\nPreferred wording: Either party may terminate this Agreement if the other party commits a material breach and fails to cure it within thirty (30) days after written notice.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Termination restrictions prevent ABC from responding to material service failure."
+        },
+        {
+          "rule_id": "RULE_006",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_006 - Governing Law\nPolicy: Governing law and dispute forum must be acceptable to ABC and reviewed for the transaction. The playbook does not designate a universally approved jurisdiction.\nRed flags:\n- Unfamiliar or commercially impractical forum\n- Conflicting governing law and dispute resolution provisions\nPreferred wording: Governing law and dispute resolution wording must be approved by ABC's legal team for the relevant transaction.\nFallback wording: No pre-approved fallback. Legal approval required.\nApplicable documents: NDA, MSA\nEscalation: Any non-standard jurisdiction or exclusive foreign forum."
+        },
+        {
+          "rule_id": "RULE_001",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_001 - Liability\nPolicy: Vendor liability should generally be capped at fees paid or payable during the 12 months preceding the event giving rise to the claim. Any exception requires legal approval.\nRed flags:\n- Unlimited liability\n- No financial liability cap\n- Broad carve-outs from the cap\nPreferred wording: The aggregate liability of either party shall not exceed the fees paid or payable under this Agreement during the twelve (12) months preceding the event giving rise to the claim, except for exclusions expressly approved in writing by ABC's legal team.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: NDA, MSA\nEscalation: Vendor rejects a reasonable cap or requests broad uncapped liability."
+        },
+        {
+          "rule_id": "RULE_002",
+          "source": "9dc10a42f4ac4e28937073c6afd8cd69_legal_playbook.md",
+          "text": "RULE_002 - Intellectual Property\nPolicy: Deliverables specifically created for ABC under the agreement should be assigned to ABC, subject to clearly identified vendor background IP.\nRed flags:\n- Vendor owns all project deliverables\n- No assignment of newly created IP\n- Broad licence-back without restrictions\nPreferred wording: All intellectual property rights in deliverables specifically created for ABC under this Agreement shall vest in ABC upon payment of applicable fees. Vendor retains ownership of its pre-existing materials, subject to a licence sufficient for ABC to use the deliverables.\nFallback wording: Fallback position requires legal approval.\nApplicable documents: MSA\nEscalation: Vendor refuses assignment of bespoke deliverables."
+        }
+      ],
+      "analysis_mode": "mock heuristic"
+    }
+  ],
+  "cross_clause_findings": [],
+  "negotiation_strategies": [],
+  "disclaimer": "AI-assisted preliminary review only. Final decisions require qualified legal review."
+}

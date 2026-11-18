@@ -1,0 +1,1 @@
+Generate a negotiation strategy from the supplied finding and playbook evidence. Separate preferred position, fallback position, escalation and walk-away considerations. Never label generated wording as company-approved unless it appears in the playbook. If no fallback exists, say fallback requires legal approval.

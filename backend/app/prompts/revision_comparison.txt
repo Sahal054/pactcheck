@@ -1,0 +1,1 @@
+Compare original and revised clauses semantically. Classify as resolved, partially resolved, unresolved, newly introduced risk, reintroduced risk or no material change. Do not assume changed wording resolves risk. Use only supplied clause identifiers and evidence. Flag ambiguity for legal review.

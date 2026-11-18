@@ -1,0 +1,26 @@
+MASTER SERVICES AGREEMENT
+Between ABC Technologies and XYZ Solutions
+
+1. Scope of Services
+Vendor will provide services described in mutually agreed statements of work.
+
+2. Fees and Payment
+ABC will pay undisputed invoices within thirty days.
+
+3. Limitation of Liability
+The aggregate liability of either party shall not exceed fees paid or payable during the twelve months preceding the event giving rise to the claim.
+
+4. Intellectual Property
+All deliverables specifically developed for ABC under this Agreement shall vest in ABC upon payment. Vendor retains ownership of its pre-existing materials.
+
+5. Confidentiality
+Each party shall protect confidential information and limit disclosure to authorised representatives with a need to know.
+
+6. Indemnification
+Vendor shall indemnify ABC against third-party claims arising from Vendor negligence, wilful misconduct or infringement of third-party IP rights.
+
+7. Termination
+Either party may terminate for material breach if the breach remains uncured thirty days after written notice.
+
+8. Governing Law
+The governing law and dispute forum shall be mutually agreed in writing and approved by ABC legal.
