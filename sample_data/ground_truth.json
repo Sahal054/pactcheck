@@ -1,0 +1,43 @@
+{
+  "description": "Manually labelled fixture expectations. Positive means a substantive clause policy deviation (High or Medium), not a missing-clause or cross-clause flag. All 20 supplied numbered clauses are evaluated.",
+  "contracts": {
+    "Sample_High_Risk_MSA.txt": {
+      "document_type": "MSA",
+      "clauses": [
+        {"number": "1", "heading": "Scope of Services", "positive": false, "rule": null},
+        {"number": "2", "heading": "Fees and Payment", "positive": false, "rule": null},
+        {"number": "3", "heading": "Limitation of Liability", "positive": true, "rule": "RULE_001"},
+        {"number": "4", "heading": "Intellectual Property", "positive": true, "rule": "RULE_002"},
+        {"number": "5", "heading": "Confidentiality", "positive": true, "rule": "RULE_003"},
+        {"number": "6", "heading": "Indemnification", "positive": true, "rule": "RULE_005"},
+        {"number": "7", "heading": "Governing Law", "positive": true, "rule": "RULE_006"}
+      ],
+      "expected_cross_clause_relationships": ["Liability cap and indemnification exception", "Confidentiality without return/deletion"]
+    },
+    "Sample_MSA.txt": {
+      "document_type": "MSA",
+      "clauses": [
+        {"number": "1", "heading": "Scope of Services", "positive": false, "rule": null},
+        {"number": "2", "heading": "Fees and Payment", "positive": false, "rule": null},
+        {"number": "3", "heading": "Limitation of Liability", "positive": false, "rule": "RULE_001"},
+        {"number": "4", "heading": "Intellectual Property", "positive": false, "rule": "RULE_002"},
+        {"number": "5", "heading": "Confidentiality", "positive": false, "rule": "RULE_003"},
+        {"number": "6", "heading": "Indemnification", "positive": false, "rule": "RULE_005"},
+        {"number": "7", "heading": "Termination", "positive": false, "rule": "RULE_004"},
+        {"number": "8", "heading": "Governing Law", "positive": false, "rule": "RULE_006"}
+      ],
+      "expected_cross_clause_relationships": ["Termination without return/deletion", "Confidentiality without return/deletion"]
+    },
+    "Sample_NDA.txt": {
+      "document_type": "NDA",
+      "clauses": [
+        {"number": "1", "heading": "Definition of Confidential Information", "positive": false, "rule": "RULE_003"},
+        {"number": "2", "heading": "Confidentiality Obligations", "positive": false, "rule": "RULE_003"},
+        {"number": "3", "heading": "Permitted Disclosures", "positive": false, "rule": "RULE_003"},
+        {"number": "4", "heading": "Duration", "positive": false, "rule": "RULE_003"},
+        {"number": "5", "heading": "Return of Information", "positive": false, "rule": "RULE_003"}
+      ],
+      "expected_cross_clause_relationships": []
+    }
+  }
+}

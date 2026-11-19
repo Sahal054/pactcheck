@@ -10,7 +10,7 @@ interface ContractUploadProps {
   disabled: boolean;
 }
 
-const DOC_TYPES = ['MSA', 'NDA', 'DPA', 'SOW', 'SLA', 'Vendor Agreement'];
+const DOC_TYPES = ['MSA', 'NDA', 'DPA', 'SOW', 'SLA'];
 
 export default function ContractUpload({
   filename,
@@ -32,10 +32,10 @@ export default function ContractUpload({
       </div>
 
       <label className="filebutton">
-        {filename ? `Selected: ${filename}` : 'Choose contract (.pdf, .docx, .txt)'}
+        {filename ? `Selected: ${filename}` : 'Choose contract (.pdf, .docx, .md, .txt)'}
         <input
           type="file"
-          accept=".pdf,.docx,.doc,.txt"
+          accept=".pdf,.docx,.md,.txt"
           disabled={busy}
           onChange={(e) => {
             const file = e.target.files?.[0];

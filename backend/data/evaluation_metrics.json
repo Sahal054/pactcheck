@@ -1,0 +1,212 @@
+{
+  "generated_at": "2026-11-19T12:21:24.491553+00:00",
+  "mode": "mock deterministic offline feature hashing",
+  "scope": "All 20 supplied numbered clauses (7 high-risk MSA + 8 MSA + 5 NDA); fixture accuracy only.",
+  "confusion_matrix": {
+    "TP": 5,
+    "TN": 15,
+    "FP": 0,
+    "FN": 0
+  },
+  "total_clauses": 20,
+  "metrics": {
+    "Accuracy": 1.0,
+    "Precision": 1.0,
+    "Recall": 1.0,
+    "F1": 1.0,
+    "Specificity": 1.0,
+    "FPR": 0.0,
+    "FNR": 0.0,
+    "Hit@K": 1.0
+  },
+  "rag_k": 3,
+  "rag_hits": 16,
+  "rag_queries": 16,
+  "cross_clause_false_positives": 0,
+  "clause_results": [
+    {
+      "contract": "Sample_High_Risk_MSA.txt",
+      "clause_number": "1",
+      "heading": "Scope of Services",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": []
+    },
+    {
+      "contract": "Sample_High_Risk_MSA.txt",
+      "clause_number": "2",
+      "heading": "Fees and Payment",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": []
+    },
+    {
+      "contract": "Sample_High_Risk_MSA.txt",
+      "clause_number": "3",
+      "heading": "Limitation of Liability",
+      "expected_positive": true,
+      "actual_risk": "High",
+      "rule_ids": [
+        "RULE_001"
+      ]
+    },
+    {
+      "contract": "Sample_High_Risk_MSA.txt",
+      "clause_number": "4",
+      "heading": "Intellectual Property",
+      "expected_positive": true,
+      "actual_risk": "High",
+      "rule_ids": [
+        "RULE_002"
+      ]
+    },
+    {
+      "contract": "Sample_High_Risk_MSA.txt",
+      "clause_number": "5",
+      "heading": "Confidentiality",
+      "expected_positive": true,
+      "actual_risk": "High",
+      "rule_ids": [
+        "RULE_003"
+      ]
+    },
+    {
+      "contract": "Sample_High_Risk_MSA.txt",
+      "clause_number": "6",
+      "heading": "Indemnification",
+      "expected_positive": true,
+      "actual_risk": "High",
+      "rule_ids": [
+        "RULE_005"
+      ]
+    },
+    {
+      "contract": "Sample_High_Risk_MSA.txt",
+      "clause_number": "7",
+      "heading": "Governing Law",
+      "expected_positive": true,
+      "actual_risk": "High",
+      "rule_ids": [
+        "RULE_006"
+      ]
+    },
+    {
+      "contract": "Sample_MSA.txt",
+      "clause_number": "1",
+      "heading": "Scope of Services",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": []
+    },
+    {
+      "contract": "Sample_MSA.txt",
+      "clause_number": "2",
+      "heading": "Fees and Payment",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": []
+    },
+    {
+      "contract": "Sample_MSA.txt",
+      "clause_number": "3",
+      "heading": "Limitation of Liability",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": [
+        "RULE_001"
+      ]
+    },
+    {
+      "contract": "Sample_MSA.txt",
+      "clause_number": "4",
+      "heading": "Intellectual Property",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": [
+        "RULE_002"
+      ]
+    },
+    {
+      "contract": "Sample_MSA.txt",
+      "clause_number": "5",
+      "heading": "Confidentiality",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": [
+        "RULE_003"
+      ]
+    },
+    {
+      "contract": "Sample_MSA.txt",
+      "clause_number": "6",
+      "heading": "Indemnification",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": [
+        "RULE_005"
+      ]
+    },
+    {
+      "contract": "Sample_MSA.txt",
+      "clause_number": "7",
+      "heading": "Termination",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": [
+        "RULE_004"
+      ]
+    },
+    {
+      "contract": "Sample_MSA.txt",
+      "clause_number": "8",
+      "heading": "Governing Law",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": [
+        "RULE_006"
+      ]
+    },
+    {
+      "contract": "Sample_NDA.txt",
+      "clause_number": "1",
+      "heading": "Definition of Confidential Information",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": []
+    },
+    {
+      "contract": "Sample_NDA.txt",
+      "clause_number": "2",
+      "heading": "Confidentiality Obligations",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": [
+        "RULE_003"
+      ]
+    },
+    {
+      "contract": "Sample_NDA.txt",
+      "clause_number": "3",
+      "heading": "Permitted Disclosures",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": []
+    },
+    {
+      "contract": "Sample_NDA.txt",
+      "clause_number": "4",
+      "heading": "Duration",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": []
+    },
+    {
+      "contract": "Sample_NDA.txt",
+      "clause_number": "5",
+      "heading": "Return of Information",
+      "expected_positive": false,
+      "actual_risk": "Low",
+      "rule_ids": []
+    }
+  ]
+}

@@ -20,11 +20,11 @@ import type {
   UploadedFile,
 } from '../types/api';
 
-export default function Dashboard() {
+export default function Dashboard({report, onReportUpdate}: {report: Report | null; onReportUpdate: (report: Report | null) => void}) {
   const [health, setHealth] = useState<Health | null>(null);
   const [indexStatus, setIndexStatus] = useState<IndexStatus | null>(null);
   const [contract, setContract] = useState<UploadedFile | null>(null);
-  const [report, setReport] = useState<Report | null>(null);
+  const setReport = onReportUpdate;
   const [documentType, setDocumentType] = useState('MSA');
   const [playbookPath, setPlaybookPath] = useState('');
   const [busy, setBusy] = useState(false);
@@ -38,6 +38,8 @@ export default function Dashboard() {
       const [h, s] = await Promise.all([api.health(), api.indexStatus()]);
       setHealth(h);
       setIndexStatus(s);
+      if (s.error) setError(s.error);
+      setPlaybookPath(current => current || s.playbook_path || '');
     } catch {
       setHealth({ status: 'offline' });
       setIndexStatus(null);
@@ -209,7 +211,7 @@ export default function Dashboard() {
               Choose playbook file
               <input
                 type="file"
-                accept=".pdf,.md,.txt"
+                accept=".pdf,.docx,.md,.txt"
                 disabled={busy}
                 onChange={(e) => {
                   const file = e.target.files?.[0];
@@ -283,8 +285,8 @@ export default function Dashboard() {
             <div>
               <b>Vendor revision intelligence</b>
               <p>
-                Revision comparison endpoint is available in the API; the UI
-                workflow is not yet exposed.
+                Open Revision Comparison to upload a vendor revision and see
+                clause changes alongside a fresh policy assessment.
               </p>
             </div>
           </div>
@@ -299,7 +301,7 @@ export default function Dashboard() {
         </section>
       </div>
 
-      {report && <ReviewReport onReportUpdate={setReport} report={report}/>}
+      {report && <ReviewReport key={report.review_id} onReportUpdate={setReport} report={report}/>}
     </>
   );
 }

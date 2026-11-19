@@ -17,15 +17,16 @@ export interface PlaybookRuleItem {
 export default function PlaybookDashboard() {
   const [rules, setRules] = useState<PlaybookRuleItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [docFilter, setDocFilter] = useState<'ALL' | 'MSA' | 'NDA'>('ALL');
   const [copiedRuleId, setCopiedRuleId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch(`${BASE_URL}/api/playbook/rules`)
-      .then((res) => res.json())
+      .then((res) => { if (!res.ok) throw new Error('Unable to load playbook rules. Check the backend connection.'); return res.json(); })
       .then((data) => setRules(data.rules || []))
-      .catch(() => setRules([]))
+      .catch(e => setError(e.message))
       .finally(() => setLoading(false));
   }, []);
 
@@ -39,14 +40,13 @@ export default function PlaybookDashboard() {
       r.rule_id.toLowerCase().includes(q) ||
       r.clause_type.toLowerCase().includes(q) ||
       r.policy.toLowerCase().includes(q) ||
-      r.preferred_wording.toLowerCase().includes(q);
+      (r.preferred_wording || '').toLowerCase().includes(q);
     return matchesDoc && matchesSearch;
   });
 
-  function copyWording(rule: PlaybookRuleItem) {
-    void navigator.clipboard.writeText(rule.preferred_wording);
-    setCopiedRuleId(rule.rule_id);
-    setTimeout(() => setCopiedRuleId(null), 2000);
+  async function copyWording(rule: PlaybookRuleItem) {
+    try { await navigator.clipboard.writeText(rule.preferred_wording); setCopiedRuleId(rule.rule_id); setTimeout(() => setCopiedRuleId(null), 2000); }
+    catch { setError('Clipboard unavailable. Select and copy the approved wording below.'); }
   }
 
   return (
@@ -64,6 +64,7 @@ export default function PlaybookDashboard() {
         </div>
       </header>
 
+      {error && <p className="alert error" role="alert">{error}</p>}
       {/* Summary KPI Bar */}
       <section className="stats">
         <div className="stat">
@@ -195,7 +196,7 @@ export default function PlaybookDashboard() {
                   <button
                     className="secondary"
                     style={{ padding: '4px 10px', fontSize: '11px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
-                    onClick={() => copyWording(rule)}
+                    onClick={() => void copyWording(rule)}
                   >
                     {copiedRuleId === rule.rule_id ? <Check size={12} /> : <Copy size={12} />}
                     {copiedRuleId === rule.rule_id ? 'Copied Wording!' : 'Copy Approved Clause'}

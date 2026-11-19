@@ -1,127 +1,70 @@
-# ContractIQ — Enterprise Contract Intelligence & Negotiation Platform
+# PactCheck / ContractIQ
 
-ContractIQ is a local-first prototype for reviewing vendor NDAs/MSAs against a company's internal legal negotiation playbook. It includes custom Hybrid RAG (FAISS + BM25 + Reciprocal Rank Fusion), provider adapters for OpenRouter/OpenAI, local embeddings, clause assessment, a first-pass cross-clause detector, negotiation guidance, and a basic revision comparison workflow.
+Vendor contract review and redlining against an internal negotiation playbook, built with FastAPI, React, TypeScript and Vite.
 
-> **Legal disclaimer:** This is an AI-assisted prototype, not legal advice. All findings, redlines and negotiation positions require review by qualified legal professionals.
+## Run locally
 
-## Current implementation status
+Use Python 3.11+ and Node.js 20+. From the repository root:
 
-| Module | Status |
-|---|---|
-| FastAPI backend | Implemented |
-| React dashboard | Implemented (MVP) |
-| PDF/DOCX/TXT extraction | Implemented; scanned PDF OCR not included |
-| Playbook parser and indexing | Implemented for structured Markdown; PDF/text fallback |
-| FAISS + BM25 + RRF | Implemented |
-| Local/OpenRouter/OpenAI LLM adapters | Implemented; live calls require credentials and provider/model availability |
-| Local/OpenRouter/OpenAI embeddings | Implemented; OpenRouter requires a compatible embedding model ID |
-| Clause assessment | Implemented; mock mode is explicitly heuristic |
-| Cross-clause intelligence | Implemented as a deterministic first-pass pattern detector |
-| Negotiation strategy | Basic playbook-grounded scaffold |
-| Revision comparison | Basic clause matching/text comparison; semantic re-assessment is future work |
-| Missing clause checklist | Not yet exposed as a complete UI workflow |
-| Playbook conflict detection | Not yet implemented |
-| Automated full-stack tests | Partial backend unit tests included |
-
-## Requirements
-- Python 3.11+
-- Node.js 20+
-- Internet connection for installing dependencies and downloading the local embedding model the first time
-- For live LLM inference: OpenRouter API key or OpenAI API key
-- For local mock mode: no API key required
-
-## Run on macOS
-
-Terminal 1:
 ```bash
-cd ContractIQ_Project/backend
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 cp .env.example .env
-# For offline/mock assessment, set LLM_PROVIDER=mock in .env
-# For OpenRouter live inference, set LLM_PROVIDER=openrouter and add OPENROUTER_API_KEY
-bash start_backend.sh
+uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
 
-Terminal 2:
+In another terminal:
+
 ```bash
-cd ContractIQ_Project/frontend
-bash start_frontend.sh
+cd frontend
+npm ci
+npm run dev
 ```
 
-Open http://127.0.0.1:5173 and API docs at http://127.0.0.1:8000/docs.
+Open http://127.0.0.1:5173. Interactive API documentation is at http://127.0.0.1:8000/docs.
 
-## First-time workflow
-1. In the backend `.env`, choose `LLM_PROVIDER=mock` to inspect the application without a live LLM, or `openrouter` for live inference.
-2. Keep `EMBEDDING_PROVIDER=local` for zero API embedding cost.
-3. In the app's Playbook Index section, use `./data/playbook/legal_playbook.md` and click Build / rebuild index.
-4. Upload `../sample_data/Sample_High_Risk_MSA.txt` (or a PDF/DOCX contract) through the UI.
-5. Select MSA and run review.
+## Implemented workspaces
 
-The sample data directory is at the project root. You can also copy sample files into `backend/data/contracts`.
+- **Overview / Contract Review:** PDF, DOCX, Markdown and TXT intake; MSA, NDA, DPA, SOW and SLA classification; playbook upload/indexing; readiness scoring; clause redlines; inline and split diffs; accept/edit/reject; evidence drawers; counsel emails; negotiation strategies; native Word Track Changes export.
+- **Playbook Rules:** live indexed policy, red flags, escalation/fallback positions, search, document filtering and copy wording.
+- **Cross-Clause & Coverage:** missing mandatory rules and clause interactions, sharing the current review across views.
+- **Revision Comparison:** original/revised uploads, revised-clause policy re-assessment, changes, removals and additions.
+- **Settings & Diagnostics:** runtime provider/model/key editing and independent LLM/embedding connection tests. Keys are never returned by settings endpoints.
 
-## Provider configuration
+## Offline and live providers
 
-### Free-first local embeddings + OpenRouter LLM
-```env
-LLM_PROVIDER=openrouter
-OPENROUTER_API_KEY=your_key
-OPENROUTER_MODEL=openrouter/free
-EMBEDDING_PROVIDER=local
-LOCAL_EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
-```
+The defaults are `LLM_PROVIDER=mock` and `EMBEDDING_PROVIDER=local`. Mock review uses deterministic policy heuristics for all six supplied rules; it is explicitly identified in every assessment.
 
-OpenRouter's free router is subject to model availability and rate limits. Free chat inference does not imply free embeddings. Local Sentence Transformers is the default embedding option and incurs no per-request API charge after model download.
+Local embeddings use cached `sentence-transformers/all-MiniLM-L6-v2`. If it cannot load, a deterministic signed token and bigram hashing implementation produces normalized 384-dimensional vectors. No download is attempted by default. Set `LOCAL_EMBEDDING_ALLOW_DOWNLOAD=true` to permit initial model download. Fallback vectors have their own versioned fingerprint and never silently share an index with MiniLM vectors.
 
-### Mock mode
-```env
-LLM_PROVIDER=mock
-EMBEDDING_PROVIDER=local
-```
-Mock mode is for local plumbing and deterministic demonstration only. It is not a substitute for live model reasoning. In mock mode, the current clause reviewer uses a narrow heuristic and labels the result accordingly.
+Startup creates a missing default index. A startup embedding mismatch rebuilds the index from the active saved rule chunks. Explicit index rebuild also works after changing providers/models. During a running session, incompatible retrieval fails with a rebuild instruction.
 
-### Later: OpenAI LLM + OpenAI embeddings
-```env
-LLM_PROVIDER=openai
-OPENAI_API_KEY=your_key
-OPENAI_MODEL=gpt-4.1-mini
-EMBEDDING_PROVIDER=openai
-OPENAI_EMBEDDING_MODEL=text-embedding-3-small
-```
-OpenAI API usage is paid separately from a ChatGPT subscription. Confirm the model is enabled for your API project.
+For live review, select `openai` or `openrouter`, provide the corresponding API key and model, then test the connection in Settings. OpenAI requests use the official endpoint and Pydantic Structured Outputs. OpenRouter uses its configured base URL and handles fenced JSON. TLS verification remains enabled. Live response latency depends on the provider; only warm local/mock assessment has a tested sub-three-second threshold.
 
-### Mixed configuration
-You can use OpenRouter for LLM calls and OpenAI embeddings, or OpenAI for LLM calls and local embeddings. LLM and embedding providers are configured independently.
+## Policy coverage and scoring
 
-**Important:** If the embedding provider or model changes, rebuild the playbook index. The backend checks saved embedding metadata and refuses incompatible index use.
+The supplied six rules govern liability, IP ownership, confidentiality, termination, indemnification and governing law. Each rule declares its applicable classifications; DPA/SOW/SLA uploads work but need additional applicable playbook rules for substantive assessment. The existing NDA rules include liability and governing law, even when the sample NDA omits them.
 
-## API endpoints
-- `GET /api/health`
-- `GET /api/settings`
-- `POST /api/settings/test-llm`
-- `POST /api/settings/test-embeddings`
-- `POST /api/playbook/upload`
-- `POST /api/playbook/index` (multipart `path` field)
-- `GET /api/playbook/index-status`
-- `POST /api/contracts/upload`
-- `POST /api/review/analyze` (multipart `path`, `document_type`)
-- `POST /api/revisions/compare` (multipart `original_path`, `revised_path`)
-- `GET /api/reports/{review_id}`
+Coverage is distinct from per-clause compliance: a definition is not penalized for missing obligations belonging elsewhere, while a completely absent mandatory rule appears in the coverage checklist. Readiness is a deterministic 0–100 snapshot of the original contract using 60% clause findings, 25% mandatory coverage and 15% cross-clause interactions. Accepting or editing a proposed redline does not certify the vendor contract as compliant. See [architecture](docs/ARCHITECTURE.md) for the exact formula.
 
-For a quick API test, use Swagger at `/docs`.
+## Verification
 
-## Run tests
 ```bash
 cd backend
 source .venv/bin/activate
-pytest -q
+pytest -v -s
+cd ../frontend
+npm run build
 ```
 
-## Important limitations to address before a competition demo
-1. The current heading-based parser is a baseline. It does not reliably handle every contract layout, tables, scanned PDFs or complex multilevel numbering.
-2. Cross-clause analysis currently detects a narrow liability/indemnity pattern using deterministic text matching. It is not yet a general legal reasoning engine.
-3. Revision comparison currently matches by clause number/heading and detects text changes. It does not yet perform a full second-pass semantic risk assessment on revised clauses.
-4. Risk scoring is clause-level and should be expanded with a documented, calibrated scoring policy.
-5. Settings are configured through backend `.env`; a secure runtime settings editor is not yet implemented.
-6. Mock mode does not perform genuine LLM analysis.
-7. OCR for image-only PDFs is not included.
+The backend suite includes parsing and page tracking, offline embedding fallback, FAISS/BM25/RRF ranking and filtering, fingerprint validation, OOXML track changes, evidence guardrails, sync/async provider adapters, real cached-local embedding execution, concurrent review, API workflows and a fixed-label sample benchmark.
 
-These limitations are deliberately disclosed rather than presented as completed features.
+Ground truth is in `sample_data/ground_truth.json`. The supplied contracts contain **20 numbered clauses (7 + 8 + 5)**. The benchmark evaluates all of them and saves `backend/data/evaluation_metrics.json`. A positive means a clause-level policy deviation; missing clauses and cross-clause dependencies are measured separately. Perfect scores on these small deterministic fixtures do not measure general legal accuracy or live provider quality.
+
+## Operating boundaries
+
+This is a local enterprise-hackathon application. API paths accept backend-accessible files and runtime settings apply to the backend process, so bind to localhost. API keys live in process memory or your private `.env`; runtime edits do not rewrite that file. Authentication and multi-tenant isolation are outside this local deployment.
+
+Text-based PDFs are supported; scanned image-only PDFs return an explicit OCR-required error. PDF pages are tracked directly. DOCX has no fixed pagination without a layout engine, so page tracking follows explicit/rendered Word page breaks; otherwise page 1 is reported. Cross-clause checks and offline review are deterministic heuristics. All legal findings and drafting proposals require qualified legal review.

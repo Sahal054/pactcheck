@@ -18,7 +18,7 @@
     "escalation_conditions": [
       "Vendor rejects a reasonable cap or requests broad uncapped liability."
     ],
-    "source": "535ecc38e757426ba2332e218d7fcd26_legal_playbook.md"
+    "source": "legal_playbook.md"
   },
   {
     "rule_id": "RULE_002",
@@ -38,7 +38,7 @@
     "escalation_conditions": [
       "Vendor refuses assignment of bespoke deliverables."
     ],
-    "source": "535ecc38e757426ba2332e218d7fcd26_legal_playbook.md"
+    "source": "legal_playbook.md"
   },
   {
     "rule_id": "RULE_003",
@@ -59,7 +59,7 @@
     "escalation_conditions": [
       "Broad disclosure to affiliates or subcontractors without controls."
     ],
-    "source": "535ecc38e757426ba2332e218d7fcd26_legal_playbook.md"
+    "source": "legal_playbook.md"
   },
   {
     "rule_id": "RULE_004",
@@ -79,7 +79,7 @@
     "escalation_conditions": [
       "Termination restrictions prevent ABC from responding to material service failure."
     ],
-    "source": "535ecc38e757426ba2332e218d7fcd26_legal_playbook.md"
+    "source": "legal_playbook.md"
   },
   {
     "rule_id": "RULE_005",
@@ -99,7 +99,7 @@
     "escalation_conditions": [
       "Indemnity scope or cap treatment is materially narrowed."
     ],
-    "source": "535ecc38e757426ba2332e218d7fcd26_legal_playbook.md"
+    "source": "legal_playbook.md"
   },
   {
     "rule_id": "RULE_006",
@@ -119,6 +119,6 @@
     "escalation_conditions": [
       "Any non-standard jurisdiction or exclusive foreign forum."
     ],
-    "source": "535ecc38e757426ba2332e218d7fcd26_legal_playbook.md"
+    "source": "legal_playbook.md"
   }
 ]

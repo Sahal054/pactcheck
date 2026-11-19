@@ -1,6 +1,8 @@
+"""Sync and async JSON adapters; OpenAI uses schema-enforced Structured Outputs."""
+
 import json
 import re
-from typing import Type, TypeVar
+from typing import TypeVar
 from pydantic import BaseModel
 from openai import OpenAI, AsyncOpenAI
 from app.config import settings
@@ -9,110 +11,131 @@ T = TypeVar("T", bound=BaseModel)
 
 
 def _extract_json_dict(raw: str) -> dict:
-    if not raw:
-        return {}
-    cleaned = raw.strip()
-    if cleaned.startswith("```"):
-        cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned, flags=re.IGNORECASE)
-        cleaned = re.sub(r"\s*```$", "", cleaned)
-    try:
-        return json.loads(cleaned)
-    except json.JSONDecodeError:
-        m = re.search(r"\{[\s\S]*\}", cleaned)
-        if m:
-            return json.loads(m.group(0))
-        raise
+    cleaned = re.sub(r"```(?:json)?\s*|```", "", raw.strip(), flags=re.IGNORECASE)
+    decoder = json.JSONDecoder()
+    for start in [0] + [m.start() for m in re.finditer(r"\{", cleaned)]:
+        try:
+            value, _ = decoder.raw_decode(cleaned[start:].lstrip())
+            if isinstance(value, dict):
+                return value
+        except json.JSONDecodeError:
+            continue
+    raise ValueError("Model response did not contain a JSON object")
 
 
 class LLMService:
-    def _get_sync_client_and_model(self):
+    @staticmethod
+    def _temperature(model: str) -> float:
+        return 1.0 if "gpt-5" in model.lower() else 0.1
+
+    def _configuration(self):
         provider = settings.llm_provider.lower()
-        if provider == "openrouter":
-            if not settings.openrouter_api_key:
-                raise RuntimeError("Set OPENROUTER_API_KEY in backend/.env or Settings")
-            return OpenAI(api_key=settings.openrouter_api_key, base_url=settings.openrouter_base_url), settings.openrouter_model
         if provider == "openai":
-            if not settings.openai_api_key:
-                raise RuntimeError("Set OPENAI_API_KEY in backend/.env or Settings")
-            return OpenAI(api_key=settings.openai_api_key), settings.openai_model
-        raise ValueError(f"Unsupported LLM provider: {provider}")
+            key, model = settings.openai_api_key, settings.openai_model
+        elif provider == "openrouter":
+            key, model = settings.openrouter_api_key, settings.openrouter_model
+        else:
+            raise ValueError(f"Unsupported LLM provider: {provider}")
+        if not key:
+            raise RuntimeError(
+                f"Set {provider.upper()}_API_KEY in backend/.env or Settings"
+            )
+        kwargs = {"api_key": key, "timeout": 30, "max_retries": 1}
+        if provider == "openrouter":
+            kwargs["base_url"] = settings.openrouter_base_url
+        return kwargs, model
+
+    def _get_sync_client_and_model(self):
+        kwargs, model = self._configuration()
+        return OpenAI(**kwargs), model
 
     def _get_async_client_and_model(self):
-        provider = settings.llm_provider.lower()
-        if provider == "openrouter":
-            if not settings.openrouter_api_key:
-                raise RuntimeError("Set OPENROUTER_API_KEY in backend/.env or Settings")
-            return AsyncOpenAI(api_key=settings.openrouter_api_key, base_url=settings.openrouter_base_url), settings.openrouter_model
-        if provider == "openai":
-            if not settings.openai_api_key:
-                raise RuntimeError("Set OPENAI_API_KEY in backend/.env or Settings")
-            return AsyncOpenAI(api_key=settings.openai_api_key), settings.openai_model
-        raise ValueError(f"Unsupported LLM provider: {provider}")
+        kwargs, model = self._configuration()
+        return AsyncOpenAI(**kwargs), model
 
-    def complete_json(self, system_prompt: str, user_prompt: str, response_schema: Type[T] | None = None) -> dict:
-        provider = settings.llm_provider.lower()
-        if provider == "mock":
-            return {"mock": True, "message": "Mock mode active."}
+    @staticmethod
+    def _parsed(response):
+        message = response.choices[0].message
+        if getattr(message, "refusal", None) or not message.parsed:
+            raise ValueError("Model refused or returned no structured assessment")
+        return message.parsed.model_dump()
+
+    def complete_json(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        response_schema: type[T] | None = None,
+    ) -> dict:
+        if settings.llm_provider == "mock":
+            return {
+                "connection": "ok",
+                "mode": "mock",
+                "message": "Deterministic mode; no remote request made.",
+            }
         client, model = self._get_sync_client_and_model()
-
-        if provider == "openai" and response_schema is not None:
-            try:
-                parsed_resp = client.beta.chat.completions.parse(
-                    model=model,
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": user_prompt},
-                    ],
-                    temperature=0.1,
-                    response_format=response_schema,
-                )
-                msg = parsed_resp.choices[0].message
-                if msg.parsed:
-                    return msg.parsed.model_dump()
-            except Exception:
-                pass
-
-        response = client.chat.completions.create(
+        kwargs = dict(
             model=model,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ],
-            temperature=0.1,
-            response_format={"type": "json_object"},
+            temperature=self._temperature(model),
         )
-        return _extract_json_dict(response.choices[0].message.content or "{}")
+        try:
+            if settings.llm_provider == "openai" and response_schema is not None:
+                return self._parsed(
+                    client.beta.chat.completions.parse(
+                        **kwargs, response_format=response_schema
+                    )
+                )
+            response = client.chat.completions.create(
+                **kwargs, response_format={"type": "json_object"}
+            )
+            result = _extract_json_dict(response.choices[0].message.content or "")
+            return (
+                response_schema.model_validate(result).model_dump()
+                if response_schema
+                else result
+            )
+        finally:
+            client.close()
 
-    async def acomplete_json(self, system_prompt: str, user_prompt: str, response_schema: Type[T] | None = None) -> dict:
-        provider = settings.llm_provider.lower()
-        if provider == "mock":
-            return {"mock": True, "message": "Mock mode active."}
+    async def acomplete_json(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        response_schema: type[T] | None = None,
+    ) -> dict:
+        if settings.llm_provider == "mock":
+            return {
+                "connection": "ok",
+                "mode": "mock",
+                "message": "Deterministic mode; no remote request made.",
+            }
         client, model = self._get_async_client_and_model()
-
-        if provider == "openai" and response_schema is not None:
-            try:
-                parsed_resp = await client.beta.chat.completions.parse(
-                    model=model,
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": user_prompt},
-                    ],
-                    temperature=0.1,
-                    response_format=response_schema,
-                )
-                msg = parsed_resp.choices[0].message
-                if msg.parsed:
-                    return msg.parsed.model_dump()
-            except Exception:
-                pass
-
-        response = await client.chat.completions.create(
+        kwargs = dict(
             model=model,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ],
-            temperature=0.1,
-            response_format={"type": "json_object"},
+            temperature=self._temperature(model),
         )
-        return _extract_json_dict(response.choices[0].message.content or "{}")
+        try:
+            if settings.llm_provider == "openai" and response_schema is not None:
+                return self._parsed(
+                    await client.beta.chat.completions.parse(
+                        **kwargs, response_format=response_schema
+                    )
+                )
+            response = await client.chat.completions.create(
+                **kwargs, response_format={"type": "json_object"}
+            )
+            result = _extract_json_dict(response.choices[0].message.content or "")
+            return (
+                response_schema.model_validate(result).model_dump()
+                if response_schema
+                else result
+            )
+        finally:
+            await client.close()

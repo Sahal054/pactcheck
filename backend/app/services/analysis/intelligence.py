@@ -44,12 +44,12 @@ DEPENDENCY_CHECKS = [
 ]
 
 CAP_EXCLUSION_PATTERNS = [
+    "expressly excluded from",
     "excluded from the liability cap",
     "not subject to the liability cap",
     "not be subject to any limitation of liability",
     "excluded from and shall not be subject to any limitation of liability",
     "outside the limitation of liability",
-    "without limitation",
 ]
 
 
@@ -67,6 +67,23 @@ def _matches(clause: dict, terms: list) -> bool:
     return any(term in t for term in terms)
 
 
+def _role_clauses(clauses, terms):
+    matches = [c for c in clauses if _heading_matches(c, terms)]
+    if matches:
+        return matches
+    # Body fallback is for unstructured provisions, not another clearly labelled legal role.
+    return [
+        c
+        for c in clauses
+        if (
+            not c.get("heading")
+            or c["heading"].lower() == "full document"
+            or c["heading"].lower().startswith("provision ")
+        )
+        and _matches(c, terms)
+    ]
+
+
 def cross_clause_findings(
     clauses: list,
     assessments: list,
@@ -76,21 +93,23 @@ def cross_clause_findings(
     findings = []
 
     def add(related, risk, relationship, explanation, recommendation, basis):
-        findings.append({
-            "finding_id": f"CROSS_{len(findings) + 1:03d}",
-            "related_clause_ids": related,
-            "risk_level": risk,
-            "relationship": relationship,
-            "explanation": explanation,
-            "recommendation": recommendation,
-            "requires_legal_review": True,
-            "basis": basis,
-        })
+        findings.append(
+            {
+                "finding_id": f"CROSS_{len(findings) + 1:03d}",
+                "related_clause_ids": related,
+                "risk_level": risk,
+                "relationship": relationship,
+                "explanation": explanation,
+                "recommendation": recommendation,
+                "requires_legal_review": True,
+                "basis": basis,
+            }
+        )
 
     # 1. Liability cap vs indemnification exception (MSA only)
     if document_type.upper() == "MSA":
-        liability = [c for c in clauses if _heading_matches(c, ["liabilit"])] or [c for c in clauses if _matches(c, ["liabilit"])]
-        indemnity = [c for c in clauses if _heading_matches(c, ["indemn"])] or [c for c in clauses if _matches(c, ["indemn"])]
+        liability = _role_clauses(clauses, ["liabilit"])
+        indemnity = _role_clauses(clauses, ["indemn"])
         seen_pairs = set()
         for l in liability:
             for ind in indemnity:
@@ -107,7 +126,7 @@ def cross_clause_findings(
                         "High",
                         "Liability cap and indemnification exception",
                         "The agreement excludes indemnification obligations from the general limitation of liability cap. "
-                        "This creates uncapped indirect exposure across Clauses 3 and 6 and must be reviewed as a combined provision.",
+                        f"This creates uncapped exposure across {l['clause_id']} and {ind['clause_id']} and requires combined review.",
                         "Subject indemnification obligations to a mutually agreed super-cap or the general 12-month fee cap per RULE_001 and RULE_005.",
                         "Cross-clause interaction detector (RULE_001 ↔ RULE_005).",
                     )
@@ -117,16 +136,19 @@ def cross_clause_findings(
         if check["docs"] and document_type.upper() not in check["docs"]:
             continue
         # Match trigger primarily by heading so an indemnity clause mentioning 'liability' isn't mistaken for the Liability clause
-        triggers = [c for c in clauses if _heading_matches(c, check["trigger"])]
-        if not triggers:
-            triggers = [c for c in clauses if _matches(c, check["trigger"])]
+        triggers = _role_clauses(clauses, check["trigger"])
         if not triggers:
             continue
         satisfied = False
         for c in clauses:
             if check["exclude_self"] and c in triggers:
                 continue
-            if _matches(c, check["required"]):
+            companion = (
+                c in _role_clauses(clauses, check["required"])
+                if check["exclude_self"]
+                else _matches(c, check["required"])
+            )
+            if companion:
                 satisfied = True
                 break
         if not satisfied:
@@ -140,6 +162,7 @@ def cross_clause_findings(
             )
 
     return findings
+
 
 # ---------------------------------------------------------------------- #
 # Negotiation strategy
@@ -155,11 +178,16 @@ def negotiation_strategy(assessment: dict) -> dict | None:
         return None
 
     ids = assessment.get("applicable_rule_ids", [])
-    rule = next((e for e in assessment.get("evidence", []) if e.get("rule_id") in ids), None)
+    rule = next(
+        (e for e in assessment.get("evidence", []) if e.get("rule_id") in ids), None
+    )
     rule_text = rule.get("text", "") if rule else ""
 
     policy = _field(rule_text, "Policy")
-    fallback = _field(rule_text, "Fallback wording") or "Fallback position requires legal approval."
+    fallback = (
+        _field(rule_text, "Fallback wording")
+        or "Fallback position requires legal approval."
+    )
     escalation = _field(rule_text, "Escalation")
 
     return {

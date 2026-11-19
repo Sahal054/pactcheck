@@ -1,17 +1,11 @@
-# Fresco Play / Six-Hour Rebuild Guide
+# Hackathon engineering guide
 
-## Suggested six-hour sequence
-- 0:00–0:30: Create FastAPI/React skeleton, environment and health route.
-- 0:30–1:15: Implement document parsing, clause extraction and sample data.
-- 1:15–2:15: Implement playbook parser, embeddings, FAISS, BM25 and RRF.
-- 2:15–3:00: Implement evidence-grounded clause assessment and redline output.
-- 3:00–3:45: Implement cross-clause interaction detection and negotiation recommendations.
-- 3:45–4:30: Implement revised-version comparison.
-- 4:30–5:15: Build dashboard and connect review endpoints.
-- 5:15–6:00: Run sample contracts, fix errors, rehearse demo and package.
+The repository contains an end-to-end local demo: intake, parsing, hybrid retrieval, evidence-constrained review, coverage, interactions, negotiation guidance, revision comparison, settings diagnostics and tracked Word export.
 
-## Module-generation prompt pattern
-“Implement [module] in Python/TypeScript. Follow the existing project interfaces. Do not invent endpoints or schemas. Include input/output types, error handling and tests. Preserve source rule IDs and evidence. Do not leave TODOs for the requested functionality.”
+For a clean environment, follow README.md to install Python/Node dependencies, start both services and verify the default index. `.env.example` selects credential-free mock/local defaults; existing environment values take precedence.
 
-## Demo priority
-A reliable end-to-end review with clear evidence is more important than optional modules. If time is short, preserve: upload → extract → hybrid retrieve → assess → show risk/evidence/redline. Demonstrate cross-clause detection as the signature feature. Do not claim unfinished semantic revision comparison as complete.
+When extending the application, keep each rule's scope and approved policy in the playbook. Add a labelled fixture and a regression test before changing heuristic behavior. Keep source policy identifiers separate from model-generated drafting, and never convert missing evidence into a Low result.
+
+Demonstrate the high-risk MSA first, then its comparison with the standard MSA. Use the NDA to show that definitions/duration stay Low while document-level omissions remain visible in coverage. All three files contain 20 numbered clauses in total.
+
+Before presenting, run `pytest -v -s` in backend and `npm run build` in frontend. Inspect the generated metrics JSON and explain that perfect fixture scores describe deterministic regression performance, not universal contract/legal accuracy. Live provider access should be tested explicitly in Settings before representing any response as live inference.

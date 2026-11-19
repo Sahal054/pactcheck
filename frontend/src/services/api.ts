@@ -1,5 +1,6 @@
 import type {
   Health,
+  RuntimeSettings, SettingsUpdate, DiagnosticResult, RevisionComparison,
   IndexResult,
   IndexStatus,
   ReviewReport,
@@ -12,12 +13,25 @@ async function request<T>(url: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}/api${url}`, init);
   if (!res.ok) {
     const errBody = await res.json().catch(() => ({}));
-    throw new Error(errBody.detail || `Request failed (${res.status})`);
+    throw new Error(typeof errBody.detail === 'string' ? errBody.detail : errBody.detail ? JSON.stringify(errBody.detail) : `Request failed (${res.status})`);
   }
   return res.json() as Promise<T>;
 }
 
 export const api = {
+  settings: () => request<RuntimeSettings>('/settings'),
+  updateSettings: (settings: SettingsUpdate) => request<RuntimeSettings>('/settings', {
+    method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(settings),
+  }),
+  testLLM: () => request<DiagnosticResult>('/settings/test-llm', {method: 'POST'}),
+  testEmbeddings: () => request<DiagnosticResult>('/settings/test-embeddings', {method: 'POST'}),
+  compare: (original: string, revised: string, documentType: string) => {
+    const body = new FormData();
+    body.append('original_path', original);
+    body.append('revised_path', revised);
+    body.append('document_type', documentType);
+    return request<{comparisons: RevisionComparison[]; note: string}>('/revisions/compare', {method: 'POST', body});
+  },
   health: () => request<Health>('/health'),
   indexStatus: () => request<IndexStatus>('/playbook/index-status'),
 

@@ -6,6 +6,7 @@ export interface Health {
 
 export interface IndexStatus {
   indexed: boolean;
+  error?: string | null;
   index_path?: string;
   rule_count?: number;
   playbook_path?: string;
@@ -79,6 +80,10 @@ export interface NegotiationStrategy {
 
 export interface ReviewReport {
   review_id: string;
+  created_at: string;
+  contract_readiness_score: number;
+  overall_risk: 'High' | 'Medium' | 'Low';
+  rule_coverage: RuleCoverage[];
   contract_path?: string;
   document_type: string;
   total_clauses: number;
@@ -87,4 +92,45 @@ export interface ReviewReport {
   cross_clause_findings: CrossClauseFinding[];
   negotiation_strategies: NegotiationStrategy[];
   disclaimer: string;
+}
+export interface RuleCoverage {
+  rule_id: string;
+  clause_type: string;
+  status: 'Covered' | 'Partially Covered' | 'Not Covered';
+  clause_ids: string[];
+  explanation: string;
+  policy: string;
+  preferred_wording: string;
+  requires_legal_review: boolean;
+}
+
+export interface RuntimeSettings {
+  llm_provider: 'mock' | 'openai' | 'openrouter';
+  llm_model: string;
+  embedding_provider: 'local' | 'openai' | 'openrouter';
+  embedding_model: string;
+  api_keys_configured: {openai: boolean; openrouter: boolean};
+}
+export type SettingsUpdate = Partial<Omit<RuntimeSettings, 'api_keys_configured'>> & {
+  openai_api_key?: string;
+  openrouter_api_key?: string;
+};
+export interface DiagnosticResult {
+  success: boolean;
+  result?: {mode?: string; message?: string; connection?: string};
+  dimensions?: number;
+  provider?: string;
+  model?: string;
+}
+export interface RevisionComparison {
+  heading: string;
+  status: string;
+  original_clause_id?: string;
+  revised_clause_id?: string;
+  original_text?: string;
+  revised_text?: string;
+  new_risk_level?: ClauseAssessment['risk_level'];
+  word_diff: DiffToken[];
+  assessment?: ClauseAssessment;
+  note?: string;
 }

@@ -1,16 +1,15 @@
-# Implementation Guide
+# Implementation guide
 
-Recommended implementation order:
-1. Create FastAPI skeleton and configuration.
-2. Add document extraction and clause segmentation.
-3. Add playbook parser and rule metadata.
-4. Add embedding providers and index fingerprint.
-5. Add FAISS, BM25 and RRF.
-6. Add LLM provider abstraction and structured output validation.
-7. Add clause assessment and evidence validation.
-8. Add cross-clause detector.
-9. Add negotiation scaffolding and revision comparison.
-10. Build React dashboard and connect endpoints.
-11. Test using synthetic NDA/MSA documents.
+Core services are split by document parsing/export, AI providers, hybrid retrieval and contract analysis. FastAPI routes orchestrate those services; React uses the typed API client and shared current report.
 
-The included code is an MVP implementation. Follow README limitations before representing the application as production-grade.
+- Parser bodies begin after heading matches. DOCX body order includes tables; PDF page text is retained for source ranges.
+- Embeddings prefer cached MiniLM and use signed SHA-256 token/bigram hashing when unavailable. Fingerprints distinguish both implementations.
+- Explicit indexing bypasses incompatible old vectors. Retrieval combines FAISS, BM25 and RRF after document eligibility filtering.
+- Review concurrently evaluates each clause with all clauses as context. Pydantic schemas and post-processing constrain evidence, drafting and risk labels.
+- Coverage maps applicable mandatory rules to substantive clause roles and assessments. Dependencies match headings first to avoid body cross-reference confusion.
+- Report scoring is deterministic and versioned. JSON writes use atomic replacement. Original assessment scores are retained after user drafting choices.
+- Word export uses native OOXML insertions/deletions with PactCheck AI authorship and user state handling, plus coverage and interaction sections.
+- Revision matching reserves known headings before falling back to numbers; vendor clauses receive a fresh policy review. Added/removed text remains visible.
+- The frontend implements review, rules, coverage, revision and settings views with loading, empty and error states. Current review data survives navigation.
+
+Run the backend suite and frontend build before changing interfaces. Ground-truth labels live outside the reviewer, in `sample_data/ground_truth.json`. Model API tests use fakes; runtime keys and user reports are isolated from the test suite. See TESTING_GUIDE.md for reproducible evaluation definitions and ARCHITECTURE.md for score weights.

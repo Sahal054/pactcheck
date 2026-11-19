@@ -1,89 +1,125 @@
+"""Extract ordered document text and segment numbered or Markdown headings."""
+
+from bisect import bisect_right
 from pathlib import Path
 import re
-import fitz
+import pymupdf as fitz
 from docx import Document
+from docx.table import Table
+from docx.text.paragraph import Paragraph
+from docx.oxml.ns import qn
 from app.schemas.models import Clause
 
 HEADING = re.compile(
-    r"(?m)^\s*(?:(?:ARTICLE|SECTION|Clause)\s+)?(\d+(?:\.\d+)*|[IVXLCDM]+)(?:[.)\s:-]+)\s*([^\n]{2,100})\s*$"
+    r"(?m)^[ \t]*(?:#{1,6}[ \t]+)?(?:(?:ARTICLE|SECTION|Clause)[ \t]+)?"
+    r"(\d+(?:\.\d+)*|[IVXLCDM]+)[.) \t:-]+([^\n\r]{2,100})[ \t]*$"
+    r"|^[ \t]*#{1,6}[ \t]+([^\n\r]+)$",
+    re.IGNORECASE,
 )
+
 
 def extract_text(path: str) -> tuple[str, list[dict]]:
     p = Path(path)
-    if not p.exists():
+    if not p.is_file():
         raise FileNotFoundError(f"File not found: {path}")
-    if p.suffix.lower() == ".pdf":
-        doc = fitz.open(path)
-        pages = [{"page": i + 1, "text": page.get_text("text")} for i, page in enumerate(doc)]
-        return "\n".join(x["text"] for x in pages), pages
-    if p.suffix.lower() == ".docx":
+    suffix = p.suffix.lower()
+    if suffix == ".pdf":
+        with fitz.open(path) as doc:
+            pages = [
+                {"page": i + 1, "text": page.get_text("text")}
+                for i, page in enumerate(doc)
+            ]
+    elif suffix == ".docx":
         doc = Document(path)
-        paragraphs = [par.text for par in doc.paragraphs if par.text.strip()]
-        for table in doc.tables:
-            for row in table.rows:
-                row_text = " | ".join(cell.text.strip() for cell in row.cells if cell.text.strip())
-                if row_text:
-                    paragraphs.append(row_text)
-        text = "\n".join(paragraphs)
-        return text, [{"page": 1, "text": text}]
-    if p.suffix.lower() in (".md", ".txt"):
-        text = p.read_text(encoding="utf-8")
-        return text, [{"page": 1, "text": text}]
-    raise ValueError("Supported files: PDF, DOCX, Markdown and TXT")
+        page_texts = [""]
+        # Walk body children so table clauses remain between their surrounding paragraphs.
+        for child in doc.element.body:
+            if child.tag == qn("w:p"):
+                paragraphs = [Paragraph(child, doc)]
+            elif child.tag == qn("w:tbl"):
+                table = Table(child, doc)
+                paragraphs = []
+                seen_cells = set()
+                for row in table.rows:
+                    for cell in row.cells:
+                        if cell._tc not in seen_cells:
+                            seen_cells.add(cell._tc)
+                            paragraphs.extend(cell.paragraphs)
+            else:
+                continue
+            for par in paragraphs:
+                is_heading = par.style is not None and par.style.name.startswith(
+                    "Heading"
+                )
+                if is_heading and not HEADING.match(par.text):
+                    page_texts[-1] += f"## {par.text}\n"
+                else:
+                    # Explicit and rendered Word page breaks are the only reliable page markers without layout.
+                    for node in par._p.iter():
+                        if node.tag == qn("w:t"):
+                            page_texts[-1] += node.text or ""
+                        elif node.tag == qn("w:tab"):
+                            page_texts[-1] += "\t"
+                        elif node.tag == qn("w:lastRenderedPageBreak") or (
+                            node.tag == qn("w:br") and node.get(qn("w:type")) == "page"
+                        ):
+                            page_texts.append("")
+                        elif node.tag == qn("w:br"):
+                            page_texts[-1] += "\n"
+                    page_texts[-1] += "\n"
+        pages = [{"page": i + 1, "text": text} for i, text in enumerate(page_texts)]
+    elif suffix in (".md", ".txt"):
+        pages = [
+            {"page": 1, "text": p.read_text(encoding="utf-8-sig").replace("\r\n", "\n")}
+        ]
+    else:
+        raise ValueError("Supported files: PDF, DOCX, Markdown and TXT")
+    return "\n".join(page["text"] for page in pages), pages
+
 
 def extract_clauses(path: str) -> list[dict]:
     full, pages = extract_text(path)
     if not full.strip():
-        raise ValueError("No readable text extracted. Scanned PDFs need OCR before review.")
-    matches = list(HEADING.finditer(full))
-    if not matches:
-        blocks = [b.strip() for b in re.split(r"\n\s*\n", full) if len(b.strip()) > 35]
-        if len(blocks) > 1:
-            return [
-                Clause(
-                    clause_id=f"CLAUSE_{i+1:03d}",
-                    clause_number=str(i + 1),
-                    heading=b.splitlines()[0][:70].strip(),
-                    text=b,
-                    page_start=1,
-                    page_end=max(1, len(pages)),
-                ).model_dump()
-                for i, b in enumerate(blocks)
-            ]
-        return [
-            Clause(
-                clause_id="CLAUSE_001",
-                clause_number="1",
-                heading="Full Document",
-                text=full.strip(),
-                page_start=1,
-                page_end=max(1, len(pages)),
-            ).model_dump()
-        ]
-    clauses = []
-    for i, m in enumerate(matches):
-        end = matches[i + 1].start() if i + 1 < len(matches) else len(full)
-        # Slice from m.end() so the body does NOT repeat the numbered heading line!
-        body = full[m.end():end].strip()
-        if not body:
-            body = full[m.start():end].strip()
-        offset = 0
-        start_page = end_page = 1
-        for page in pages:
-            page_end = offset + len(page["text"]) + 1
-            if offset <= m.start() < page_end:
-                start_page = page["page"]
-            if offset < end <= page_end:
-                end_page = page["page"]
-            offset = page_end
-        clauses.append(
-            Clause(
-                clause_id=f"CLAUSE_{i+1:03d}",
-                clause_number=m.group(1).strip(),
-                heading=m.group(2).strip(),
-                text=body,
-                page_start=start_page,
-                page_end=max(start_page, end_page),
-            ).model_dump()
+        raise ValueError(
+            "No readable text extracted. Scanned PDFs need OCR before review."
         )
+    page_offsets, offset = [], 0
+    for page in pages:
+        page_offsets.append(offset)
+        offset += len(page["text"]) + 1
+
+    def page_at(position):
+        return max(1, bisect_right(page_offsets, position))
+
+    matches = list(HEADING.finditer(full))
+    clauses = []
+    if matches:
+        for i, match in enumerate(matches):
+            end = matches[i + 1].start() if i + 1 < len(matches) else len(full)
+            body = full[match.end() : end].strip()
+            last_char = max(match.start(), len(full[:end].rstrip()) - 1)
+            clauses.append(
+                Clause(
+                    clause_id=f"CLAUSE_{i + 1:03d}",
+                    clause_number=match.group(1),
+                    heading=(match.group(2) or match.group(3)).strip().strip("#* "),
+                    text=body,
+                    page_start=page_at(match.start()),
+                    page_end=page_at(last_char),
+                ).model_dump()
+            )
+    else:
+        blocks = list(re.finditer(r"\S[\s\S]*?(?=\n[ \t]*\n|\Z)", full))
+        for i, block in enumerate(blocks):
+            clauses.append(
+                Clause(
+                    clause_id=f"CLAUSE_{i + 1:03d}",
+                    heading=(
+                        "Full Document" if len(blocks) == 1 else f"Provision {i + 1}"
+                    ),
+                    text=block.group().strip(),
+                    page_start=page_at(block.start()),
+                    page_end=page_at(block.end() - 1),
+                ).model_dump()
+            )
     return clauses

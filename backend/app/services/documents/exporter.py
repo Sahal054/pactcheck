@@ -10,32 +10,15 @@ from docx.shared import Pt, RGBColor
 
 def compute_word_diff(original: str, revised: str | None) -> list[dict]:
     """Return readable diff tokens [{'type': 'equal'|'delete'|'insert', 'text': ...}]."""
-    orig_body = original.strip()
-    lines = orig_body.splitlines()
-    if len(lines) > 1 and re.match(r"^\s*\d+(?:\.\d+)*[.)]?\s+", lines[0]):
-        orig_body = "\n".join(lines[1:]).strip()
-
-    if not revised or not revised.strip() or orig_body == revised.strip():
-        return [{"type": "equal", "text": orig_body}]
-
-    rev_body = revised.strip()
-    rev_lines = rev_body.splitlines()
-    if len(rev_lines) > 1 and re.match(r"^\s*\d+(?:\.\d+)*[.)]?\s+", rev_lines[0]):
-        rev_body = "\n".join(rev_lines[1:]).strip()
-
-    a_tokens = re.findall(r"\S+|\s+", orig_body)
-    b_tokens = re.findall(r"\S+|\s+", rev_body)
-
-    matcher = difflib.SequenceMatcher(None, a_tokens, b_tokens)
-
-    # If the clause is a wholesale rewrite (<55% token overlap), show a clean block diff
-    # instead of weaving single prepositions ("of", "the", "and") in and out.
+    if revised is None or original == revised:
+        return [{"type": "equal", "text": original}]
+    a_tokens = re.findall(r"\S+\s*|\s+", original)
+    b_tokens = re.findall(r"\S+\s*|\s+", revised)
+    matcher = difflib.SequenceMatcher(None, a_tokens, b_tokens, autojunk=False)
     if matcher.ratio() < 0.55:
-        return [
-            {"type": "delete", "text": orig_body},
-            {"type": "equal", "text": "\n\n"},
-            {"type": "insert", "text": rev_body},
-        ]
+        return ([{"type": "delete", "text": original}] if original else []) + (
+            [{"type": "insert", "text": revised}] if revised else []
+        )
 
     ops: list[dict] = []
     for tag, i1, i2, j1, j2 in matcher.get_opcodes():
@@ -51,7 +34,9 @@ def compute_word_diff(original: str, revised: str | None) -> list[dict]:
     return ops
 
 
-def _add_tracked_change(paragraph, text: str, change_type: str, change_id: int, author: str = "PactCheck AI"):
+def _add_tracked_change(
+    paragraph, text: str, change_type: str, change_id: int, author: str = "PactCheck AI"
+):
     """Insert native OOXML <w:ins> or <w:del> revision markup into a python-docx paragraph."""
     tag = "w:ins" if change_type == "insert" else "w:del"
     el = OxmlElement(tag)
@@ -64,6 +49,7 @@ def _add_tracked_change(paragraph, text: str, change_type: str, change_id: int, 
     color = OxmlElement("w:color")
     if change_type == "insert":
         color.set(qn("w:val"), "166534")
+        rPr.append(color)
         u = OxmlElement("w:u")
         u.set(qn("w:val"), "single")
         rPr.append(u)
@@ -71,7 +57,7 @@ def _add_tracked_change(paragraph, text: str, change_type: str, change_id: int, 
         color.set(qn("w:val"), "991B1B")
         strike = OxmlElement("w:strike")
         rPr.append(strike)
-    rPr.append(color)
+        rPr.append(color)
     r.append(rPr)
 
     t_tag = "w:t" if change_type == "insert" else "w:delText"
@@ -86,17 +72,30 @@ def _add_tracked_change(paragraph, text: str, change_type: str, change_id: int, 
 def generate_redlined_docx(report: dict) -> bytes:
     """Build a .docx with executive risk scorecard and native Word Track Changes (<w:ins>/<w:del>)."""
     doc = Document()
-    doc.add_heading(f"PactCheck AI — Redlined {report.get('document_type', 'Contract')}", level=0)
+    doc.core_properties.author = "PactCheck AI"
+    normal = doc.styles["Normal"]
+    normal.font.name = "Calibri"
+    normal.font.size = Pt(10)
+    normal.paragraph_format.space_after = Pt(6)
+    track = OxmlElement("w:trackRevisions")
+    doc.settings.element.append(track)
+    doc.add_heading(
+        f"PactCheck AI — Redlined {report.get('document_type', 'Contract')}", level=0
+    )
 
     meta = doc.add_paragraph()
     meta_run = meta.add_run(
         f"Review ID: {report.get('review_id', 'N/A')}  |  "
-        f"Generated: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}  |  "
+        f"Review timestamp: {report.get('created_at') or datetime.now(timezone.utc).isoformat()}  |  "
         f"Total Clauses: {report.get('total_clauses', 0)}"
     )
     meta_run.font.size = Pt(9.5)
     meta_run.font.color.rgb = RGBColor(100, 116, 139)
 
+    doc.add_paragraph(
+        f"Contract Readiness Score: {report.get('contract_readiness_score', 0)}/100  |  "
+        f"Overall Risk: {report.get('overall_risk', 'Unclear')}"
+    )
     summary = report.get("risk_summary", {})
     score_p = doc.add_paragraph()
     score_run = score_p.add_run(
@@ -119,7 +118,10 @@ def generate_redlined_docx(report: dict) -> bytes:
         orig = clause.get("original_text", "")
         redline = clause.get("suggested_redline")
 
-        doc.add_heading(f"{cid} — {heading} [{risk} Risk · {status}]", level=2)
+        doc.add_heading(
+            f"{clause.get('clause_number') or cid} — {heading} [{risk} Risk · {status}; {redline_status}]",
+            level=2,
+        )
         body_para = doc.add_paragraph()
 
         if redline and redline_status != "rejected":
@@ -128,7 +130,9 @@ def generate_redlined_docx(report: dict) -> bytes:
                 if token["type"] == "equal":
                     body_para.add_run(token["text"])
                 elif token["type"] in ("delete", "insert"):
-                    _add_tracked_change(body_para, token["text"], token["type"], change_id)
+                    _add_tracked_change(
+                        body_para, token["text"], token["type"], change_id
+                    )
                     change_id += 1
         else:
             body_para.add_run(orig)
@@ -148,10 +152,55 @@ def generate_redlined_docx(report: dict) -> bytes:
                 e_lbl = email_p.add_run("Vendor Counsel Pushback Email: ")
                 e_lbl.bold = True
                 e_lbl.font.size = Pt(9)
-                e_txt = email_p.add_run(clause["counterparty_pushback_email"])
+                from app.services.analysis.reviewer import clean_pushback
+
+                e_txt = email_p.add_run(
+                    clean_pushback(clause["counterparty_pushback_email"]) or ""
+                )
                 e_txt.italic = True
                 e_txt.font.size = Pt(9)
 
+    doc.add_heading("2. Missing Playbook Clauses and Coverage Gaps", level=1)
+    coverage = report.get("rule_coverage", [])
+    if not coverage:
+        doc.add_paragraph(
+            "No mandatory playbook coverage was available for this document classification. Legal review is required."
+        )
+    for rule in coverage:
+        doc.add_heading(
+            f"{rule['rule_id']} — {rule.get('clause_type', '')} [{rule['status']}]",
+            level=2,
+        )
+        doc.add_paragraph(rule.get("explanation", ""))
+        if rule.get("clause_ids"):
+            doc.add_paragraph("Related clauses: " + ", ".join(rule["clause_ids"]))
+        if rule["status"] != "Covered" and rule.get("preferred_wording"):
+            doc.add_paragraph(
+                "Playbook preferred position: " + rule["preferred_wording"]
+            )
+
+    doc.add_heading("3. Cross-Clause Risk Intelligence", level=1)
+    findings = report.get("cross_clause_findings", [])
+    if not findings:
+        doc.add_paragraph(
+            "No interactions detected by the configured cross-clause checks."
+        )
+    for finding in findings:
+        doc.add_heading(
+            f"{finding['finding_id']} — {finding['relationship']} [{finding['risk_level']}]",
+            level=2,
+        )
+        doc.add_paragraph(
+            "Related clauses: " + ", ".join(finding.get("related_clause_ids", []))
+        )
+        doc.add_paragraph(finding.get("explanation", ""))
+        doc.add_paragraph("Recommendation: " + finding.get("recommendation", ""))
+    doc.add_paragraph(
+        report.get(
+            "disclaimer",
+            "AI-assisted review. Final decisions require qualified legal review.",
+        )
+    )
     buf = io.BytesIO()
     doc.save(buf)
     return buf.getvalue()

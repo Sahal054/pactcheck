@@ -1,9 +1,11 @@
-# File Manifest
+# File manifest
 
-This archive contains the ContractIQ MVP source, documentation and synthetic sample data. Generated caches, virtual environments, node_modules, API secrets and runtime indexes are excluded.
+- `backend/app/`: FastAPI, provider adapters, parsing/export, hybrid retrieval, clause/coverage/interaction analysis and report persistence.
+- `backend/tests/`: offline-safe unit, guardrail, adapter, integration, runtime and fixed-label evaluation tests.
+- `backend/data/playbook/legal_playbook.md`: six-rule source playbook.
+- `backend/data/evaluation_metrics.json`: generated benchmark matrix, metrics and per-clause results.
+- `frontend/src/`: React/TypeScript review, policy, coverage, comparison and diagnostics workspaces.
+- `sample_data/`: three synthetic contracts and independent ground-truth labels (20 source clauses).
+- `docs/`: architecture, scoring, providers, API, RAG, tests, demo and operations guidance.
 
-- `backend/`: FastAPI application, AI provider adapters, hybrid retrieval, document parsing, analysis services, sample playbook and tests.
-- `frontend/`: React + TypeScript + Vite dashboard.
-- `sample_data/`: synthetic NDA/MSA test contracts.
-- `docs/`: architecture, RAG, provider configuration, prompts, API, testing, demo, troubleshooting and hackathon rebuild guides.
-- Root scripts: local startup helpers.
+Virtual environments, node_modules, compiled bundles, private environment files and generated FAISS binaries are ignored. Uploaded documents and reports are local runtime artifacts.
